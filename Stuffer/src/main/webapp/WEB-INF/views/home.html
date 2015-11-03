@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Home</title>
+</head>
+<body>
+<h1>
+	Hello world!  
+</h1>
+
+<p th:text="${msg}">Default message</p>
+<!-- 
+${#messages.msg('msgKey')}
+${#messages.msg('msgKey', param1)}
+${#messages.msg('msgKey', param1, param2)}
+${#messages.msg('msgKey', param1, param2, param3)}
+${#messages.msgWithParams('msgKey', new Object[] {param1, param2, param3, param4})}
+ -->
+</body>
+</html>

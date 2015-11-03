@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Login</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<div class="wrapper frame" id="wrapper">
+	<form id="form-login" method="post" th:action="@{/j_spring_security_check}">
+		<div class="itext"><b>Používateľ:</b></div>
+		<input class="ibox" id="username" name="username" type="text" />
+						
+		<div class="itext"><b>Heslo:</b></div>
+		<input class="ibox" id="password" name="password" type="password" />	
+		
+		<div/>
+		
+		<input class="button" id="form-login-action-confirm" name="send_login" type="submit" value="Prihlásiť sa" />			
+	</form>
+</div>
+
+<body>
+
+</body>
+</html>
