@@ -36,7 +36,7 @@ public class ThymeleafConfig {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
         templateResolver.setTemplateMode("HTML5");
         templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setPrefix("/WEB-INF/views/");
+        templateResolver.setPrefix("/web_content/views/");
         templateResolver.setSuffix(".html");
 
         return templateResolver;

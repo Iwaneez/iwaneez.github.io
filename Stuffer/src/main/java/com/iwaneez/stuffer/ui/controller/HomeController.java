@@ -69,4 +69,10 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/placeLayout.html", method = RequestMethod.GET)
+        public String getPlaceLayout() {
+                
+                return "place/placeLayout";
+        }
+	
 }
