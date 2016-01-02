@@ -6,7 +6,7 @@ import com.iwaneez.stuffer.config.Config;
 
 public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-        // App configuration
+    // App configuration
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] { Config.class };
