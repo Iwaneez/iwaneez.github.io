@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.iwaneez.stuffer")
-@Import({ ThymeleafConfig.class, PersistenceJPAConfig.class, SecurityConfig.class })
+@Import({ PersistenceJPAConfig.class, SecurityConfig.class, ThymeleafConfig.class })
 public class Config extends WebMvcConfigurerAdapter {
 
     @Override

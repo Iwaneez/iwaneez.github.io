@@ -26,10 +26,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({ "classpath:persistence/postgre.properties" }) // @PropertySource({ "classpath:persistence-postgre.properties" })
-@ComponentScan({ "com.iwaneez.stuffer.persistence" })
-//@ImportResource({ "classpath:hibernate4Config.xml" })
-@EnableJpaRepositories("com.iwaneez.stuffer.persistence")
+@PropertySource({ "classpath:persistence/postgre.properties" })
+@ComponentScan({ ENTITY_PACKAGES_TO_SCAN })
+@EnableJpaRepositories(ENTITY_PACKAGES_TO_SCAN)
 public class PersistenceJPAConfig {
 	
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "jdbc.driverClassName";
@@ -46,7 +45,7 @@ public class PersistenceJPAConfig {
     private static final String PROPERTY_NAME_POPULATING_SCRIPT = "db.populating.script";
    	private static final String PROPERTY_NAME_POPULATING_ENABLED = "db.populating.initdb";
    	
-    private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "com.iwaneez.stuffer.persistence";
+    private static final String ENTITY_PACKAGES_TO_SCAN = "com.iwaneez.stuffer.persistence";
 
     @Autowired
     private Environment env;
@@ -63,7 +62,7 @@ public class PersistenceJPAConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
        em.setDataSource(dataSource());
-       em.setPackagesToScan(new String[] { PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN });
+       em.setPackagesToScan(new String[] {ENTITY_PACKAGES_TO_SCAN});
   
        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
        em.setJpaVendorAdapter(vendorAdapter);
