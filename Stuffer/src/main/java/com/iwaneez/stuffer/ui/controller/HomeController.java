@@ -23,7 +23,7 @@ import java.util.Locale;
 @Controller
 public class HomeController {
 	
-	@Service
+	@Resource
 	private PersonService personService;
 
     @Autowired

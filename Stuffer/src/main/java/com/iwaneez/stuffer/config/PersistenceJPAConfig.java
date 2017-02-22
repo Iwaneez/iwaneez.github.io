@@ -27,8 +27,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @PropertySource({ "classpath:persistence/postgre.properties" })
-@ComponentScan({ ENTITY_PACKAGES_TO_SCAN })
-@EnableJpaRepositories(ENTITY_PACKAGES_TO_SCAN)
+@ComponentScan({ "com.iwaneez.stuffer.persistence" })
+@EnableJpaRepositories("com.iwaneez.stuffer.persistence")
 public class PersistenceJPAConfig {
 	
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "jdbc.driverClassName";
