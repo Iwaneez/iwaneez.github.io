@@ -1,7 +1,5 @@
 package com.iwaneez.stuffer.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,32 +8,34 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
+import javax.sql.DataSource;
+
 /* If you want to use this security config refer it in main config */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     private static final String LOGIN_URL = "/login";
     private static final String FAILED_LOGIN_URL = "/login?error";
     private static final String SUCCESFULL_LOGOUT_URL = "/login?logout";
     private static final String ACCESS_DENIED_URL = "/403";
-    
+
     private static final String FORM_PARAMATER_USERNAME = "username";
     private static final String FORM_PARAMATER_PASSWORD = "password";
-    
+
     private static final String COOKIE_JSESSIONID = "JSESSIONID";
-    
+
     @Autowired
     DataSource dataSource;
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .jdbcAuthentication().dataSource(dataSource)
-            .usersByUsernameQuery("select username, password, enabled from users where username = ?")
-            .authoritiesByUsernameQuery("select username, role from user_roles where username = ?")
-            .passwordEncoder(new StandardPasswordEncoder());
-        
+                .jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("select username, password, enabled from users where username = ?")
+                .authoritiesByUsernameQuery("select username, role from user_roles where username = ?")
+                .passwordEncoder(new StandardPasswordEncoder());
+
         // The authentication provider below is the simplest provider you can use
         // The users, their passwords and roles are all added as clear text
 //      auth
@@ -47,8 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //          .withUser( "user" )
 //              .password( "user" )
 //              .roles( "USER" );
- 
- 
+
+
         // The authentication provider below hashes incoming passwords using SHA1
         // The users passwords below are hashed using SHA1 (see README for values)
 //      auth
@@ -61,8 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //          .withUser( "user" )
 //              .password( "12dea96fec20593566ab75692c9949596833adc9" )
 //              .roles( "USER" );
- 
- 
+
+
         // The authentication provider below uses JDBC to retrieve your credentials
         // The data source bean configuration can be found at the bottom of this file
         // The first example uses the default Spring Security tables, see link below
@@ -76,26 +76,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/resources/**").permitAll()
-            .antMatchers( "/login/**" ).permitAll()
-            .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-            .anyRequest().authenticated()
-            //.antMatchers("/**").access("isAuthenticated()")
-            .and()
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/login/**").permitAll()
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .anyRequest().authenticated()
+                //.antMatchers("/**").access("isAuthenticated()")
+                .and()
                 .formLogin()
                 .loginPage(LOGIN_URL)
                 .failureUrl(FAILED_LOGIN_URL)
                 .usernameParameter(FORM_PARAMATER_USERNAME)
                 .passwordParameter(FORM_PARAMATER_PASSWORD)
-            .and()
+                .and()
                 .logout().permitAll()
                 .logoutSuccessUrl(SUCCESFULL_LOGOUT_URL)
                 .deleteCookies(COOKIE_JSESSIONID)
                 .invalidateHttpSession(true)
-            .and()
+                .and()
                 .exceptionHandling()
                 .accessDeniedPage(ACCESS_DENIED_URL)
-            .and()
+                .and()
                 .csrf().disable();
     }
 }

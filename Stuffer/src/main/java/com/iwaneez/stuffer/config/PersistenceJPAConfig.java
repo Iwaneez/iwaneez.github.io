@@ -1,10 +1,5 @@
 package com.iwaneez.stuffer.config;
 
-import java.util.Properties;
-
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,13 +19,17 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+import java.util.Properties;
+
 @Configuration
 @EnableTransactionManagement
-@PropertySource({ "classpath:persistence/postgre.properties" })
-@ComponentScan({ "com.iwaneez.stuffer.persistence" })
+@PropertySource({"classpath:persistence/postgre.properties"})
+@ComponentScan({"com.iwaneez.stuffer.persistence"})
 @EnableJpaRepositories("com.iwaneez.stuffer.persistence")
 public class PersistenceJPAConfig {
-	
+
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "jdbc.driverClassName";
     private static final String PROPERTY_NAME_DATABASE_URL = "jdbc.url";
     private static final String PROPERTY_NAME_DATABASE_USERNAME = "jdbc.user";
@@ -41,39 +40,39 @@ public class PersistenceJPAConfig {
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String PROPERTY_NAME_HIBERNATE_GLOBALLY_QUOTED_IDENTIFIERS = "hibernate.globally_quoted_identifiers";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-    
+
     private static final String PROPERTY_NAME_POPULATING_SCRIPT = "db.populating.script";
-   	private static final String PROPERTY_NAME_POPULATING_ENABLED = "db.populating.initdb";
-   	
+    private static final String PROPERTY_NAME_POPULATING_ENABLED = "db.populating.initdb";
+
     private static final String ENTITY_PACKAGES_TO_SCAN = "com.iwaneez.stuffer.persistence";
 
     @Autowired
     private Environment env;
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
-       JpaTransactionManager transactionManager = new JpaTransactionManager();
-       transactionManager.setEntityManagerFactory(emf);// entityManagerFactory().getObject()
-  
-       return transactionManager;
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf);// entityManagerFactory().getObject()
+
+        return transactionManager;
     }
-    
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-       LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-       em.setDataSource(dataSource());
-       em.setPackagesToScan(new String[] {ENTITY_PACKAGES_TO_SCAN});
-  
-       JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-       em.setJpaVendorAdapter(vendorAdapter);
-       em.setJpaProperties(hibernateProperties());
-  
-       return em;
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan(new String[]{ENTITY_PACKAGES_TO_SCAN});
+
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(hibernateProperties());
+
+        return em;
     }
 
     @Bean(name = "dataSource")
     public DataSource dataSource() {
-    	DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty(PROPERTY_NAME_DATABASE_DRIVER));
         dataSource.setUrl(env.getProperty(PROPERTY_NAME_DATABASE_URL));
         dataSource.setUsername(env.getProperty(PROPERTY_NAME_DATABASE_USERNAME));
@@ -82,23 +81,23 @@ public class PersistenceJPAConfig {
         return dataSource;
     }
 
-	@Bean
-	public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
-		DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
-		dataSourceInitializer.setDataSource(dataSource);
-		
-		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-		databasePopulator.addScript(new ClassPathResource(env.getProperty(PROPERTY_NAME_POPULATING_SCRIPT)));
-		
-		dataSourceInitializer.setDatabasePopulator(databasePopulator);
-		dataSourceInitializer.setEnabled(Boolean.parseBoolean(env.getProperty(PROPERTY_NAME_POPULATING_ENABLED)));
-		
-		return dataSourceInitializer;
-	}
+    @Bean
+    public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
+        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+        dataSourceInitializer.setDataSource(dataSource);
+
+        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+        databasePopulator.addScript(new ClassPathResource(env.getProperty(PROPERTY_NAME_POPULATING_SCRIPT)));
+
+        dataSourceInitializer.setDatabasePopulator(databasePopulator);
+        dataSourceInitializer.setEnabled(Boolean.parseBoolean(env.getProperty(PROPERTY_NAME_POPULATING_ENABLED)));
+
+        return dataSourceInitializer;
+    }
 
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-       return new PersistenceExceptionTranslationPostProcessor();
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
     public Properties hibernateProperties() {

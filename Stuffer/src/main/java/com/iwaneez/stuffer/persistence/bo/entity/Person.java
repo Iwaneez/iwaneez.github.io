@@ -47,7 +47,7 @@ public class Person {
 
     /**
      * This setter method should only be used by unit tests.
-     * 
+     *
      * @param id
      */
     protected void setId(Long id) {
@@ -80,7 +80,7 @@ public class Person {
 
     /**
      * Gets the full name of the person.
-     * 
+     *
      * @return The full name of the person.
      */
     @Transient
