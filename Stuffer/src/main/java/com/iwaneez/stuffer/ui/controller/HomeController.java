@@ -57,7 +57,7 @@ public class HomeController {
 				    Model model, Locale locale) {
 		Person person = personService.findByID(id);
 
-        String msg = messageSource.getMessage(MESSAGE_PERSON_RETRIEVED, new Object[]{person.getName()}, locale);
+        String msg = messageSource.getMessage(MESSAGE_PERSON_RETRIEVED, new Object[]{person.getId(), person.getName()}, locale);
         model.addAttribute(ATTRIBUTEID_MESSAGE, msg);
 
         return VIEW_HOME;
