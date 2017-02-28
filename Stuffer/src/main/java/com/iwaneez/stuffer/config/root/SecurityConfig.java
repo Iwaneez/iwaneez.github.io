@@ -17,11 +17,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String LOGIN_URL = "/login";
     private static final String FAILED_LOGIN_URL = "/login?error";
-    private static final String SUCCESFULL_LOGOUT_URL = "/login?logout";
+    private static final String SUCCESSFUL_LOGOUT_URL = "/login?logout";
     private static final String ACCESS_DENIED_URL = "/403";
 
-    private static final String FORM_PARAMATER_USERNAME = "username";
-    private static final String FORM_PARAMATER_PASSWORD = "password";
+    private static final String FORM_PARAMETER_USERNAME = "username";
+    private static final String FORM_PARAMETER_PASSWORD = "password";
 
     private static final String COOKIE_JSESSIONID = "JSESSIONID";
 
@@ -85,11 +85,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage(LOGIN_URL)
                 .failureUrl(FAILED_LOGIN_URL)
-                .usernameParameter(FORM_PARAMATER_USERNAME)
-                .passwordParameter(FORM_PARAMATER_PASSWORD)
+                .usernameParameter(FORM_PARAMETER_USERNAME)
+                .passwordParameter(FORM_PARAMETER_PASSWORD)
                 .and()
                 .logout().permitAll()
-                .logoutSuccessUrl(SUCCESFULL_LOGOUT_URL)
+                .logoutSuccessUrl(SUCCESSFUL_LOGOUT_URL)
                 .deleteCookies(COOKIE_JSESSIONID)
                 .invalidateHttpSession(true)
                 .and()
