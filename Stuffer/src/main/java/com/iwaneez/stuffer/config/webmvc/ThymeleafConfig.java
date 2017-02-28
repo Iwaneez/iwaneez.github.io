@@ -1,4 +1,4 @@
-package com.iwaneez.stuffer.config;
+package com.iwaneez.stuffer.config.webmvc;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

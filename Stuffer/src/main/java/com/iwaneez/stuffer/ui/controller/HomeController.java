@@ -67,7 +67,7 @@ public class HomeController {
                                Model model, Locale locale) {
         Person person = personService.delete(id);
 
-        String msg = messageSource.getMessage(MESSAGE_PERSON_REMOVED, new Object[]{person.getName()}, locale);
+        String msg = messageSource.getMessage(MESSAGE_PERSON_REMOVED, new Object[]{person.getId(), person.getName()}, locale);
         model.addAttribute(ATTRIBUTEID_MESSAGE, msg);
 
         return VIEW_HOME;

@@ -1,4 +1,4 @@
-package com.iwaneez.stuffer.config;
+package com.iwaneez.stuffer.config.root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +26,6 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource({"classpath:persistence/postgre.properties"})
-@ComponentScan({"com.iwaneez.stuffer.persistence"})
 @EnableJpaRepositories("com.iwaneez.stuffer.persistence")
 public class PersistenceJPAConfig {
 
