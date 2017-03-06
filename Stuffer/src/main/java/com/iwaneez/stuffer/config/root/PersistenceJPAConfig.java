@@ -2,8 +2,8 @@ package com.iwaneez.stuffer.config.root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -70,6 +70,7 @@ public class PersistenceJPAConfig {
     }
 
     @Bean(name = "dataSource")
+    @Primary
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty(PROPERTY_NAME_DATABASE_DRIVER));

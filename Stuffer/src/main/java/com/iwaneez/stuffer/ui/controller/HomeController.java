@@ -35,9 +35,9 @@ public class HomeController {
 
     private static final String ATTRIBUTEID_MESSAGE = "msg";
 
-    private static final String MESSAGE_PERSON_INSERTED = "com.iwaneez.home.person.inserted";
-    private static final String MESSAGE_PERSON_RETRIEVED = "com.iwaneez.home.person.retrieved";
-    private static final String MESSAGE_PERSON_REMOVED = "com.iwaneez.home.person.removed";
+    private static final String MESSAGE_PERSON_INSERTED = "person.inserted";
+    private static final String MESSAGE_PERSON_RETRIEVED = "person.retrieved";
+    private static final String MESSAGE_PERSON_REMOVED = "person.removed";
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String createPerson(@RequestParam(value = "firstName") String firstName,

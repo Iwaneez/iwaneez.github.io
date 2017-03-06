@@ -1,5 +1,7 @@
 package com.iwaneez.stuffer.config.webmvc;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
@@ -10,6 +12,9 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 public class ThymeleafConfig {
+
+    @Autowired
+    MessageSource messageSource;
 
     @Bean
     @Description("Thymeleaf view resolver")
@@ -26,6 +31,7 @@ public class ThymeleafConfig {
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setMessageSource(messageSource);
 
         return templateEngine;
     }
@@ -36,7 +42,7 @@ public class ThymeleafConfig {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
         templateResolver.setTemplateMode("HTML5");
         templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setPrefix("/web_content/views/");
+        templateResolver.setPrefix("templates");
         templateResolver.setSuffix(".html");
 
         return templateResolver;
