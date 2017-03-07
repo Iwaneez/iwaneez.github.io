@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Home page</title>
+    <title>Home page</title>
 </head>
 <body>
 <h1>
-	Hello world!  
+
+    <p th:text="#{test.hello}">Default hello message</p>
 </h1>
 
-<p th:text="#{test.hello}">Default hello message</p>
+
+<p th:text="${msg}">Default message</p>
 <!-- 
 ${#messages.msg('msgKey')}
 ${#messages.msg('msgKey', param1)}

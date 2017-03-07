@@ -48,6 +48,9 @@ public class PersistenceJPAConfig {
     @Autowired
     private Environment env;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -59,7 +62,7 @@ public class PersistenceJPAConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
+        em.setDataSource(dataSource);
         em.setPackagesToScan(new String[]{ENTITY_PACKAGES_TO_SCAN});
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -69,17 +72,17 @@ public class PersistenceJPAConfig {
         return em;
     }
 
-    @Bean(name = "dataSource")
-    @Primary
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty(PROPERTY_NAME_DATABASE_DRIVER));
-        dataSource.setUrl(env.getProperty(PROPERTY_NAME_DATABASE_URL));
-        dataSource.setUsername(env.getProperty(PROPERTY_NAME_DATABASE_USERNAME));
-        dataSource.setPassword(env.getProperty(PROPERTY_NAME_DATABASE_PASSWORD));
-
-        return dataSource;
-    }
+//    @Bean(name = "dataSource")
+//    @Primary
+//    public DataSource dataSource() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(env.getProperty(PROPERTY_NAME_DATABASE_DRIVER));
+//        dataSource.setUrl(env.getProperty(PROPERTY_NAME_DATABASE_URL));
+//        dataSource.setUsername(env.getProperty(PROPERTY_NAME_DATABASE_USERNAME));
+//        dataSource.setPassword(env.getProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+//
+//        return dataSource;
+//    }
 
     @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
