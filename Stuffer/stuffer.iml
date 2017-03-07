@@ -96,8 +96,10 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-devtools:1.5.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:1.5.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.5.2.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars:bootstrap:3.3.7" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars:jquery:1.11.1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:bootstrap:3.3.7-1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:jquery:3.1.1-1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:jquery-ui:1.12.1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:font-awesome:4.7.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:1.5.2.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test:1.5.2.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test-autoconfigure:1.5.2.RELEASE" level="project" />
