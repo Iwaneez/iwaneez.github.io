@@ -29,10 +29,10 @@ import java.util.Properties;
 @EnableJpaRepositories("com.iwaneez.stuffer.persistence")
 public class PersistenceJPAConfig {
 
-    private static final String PROPERTY_NAME_DATABASE_DRIVER = "jdbc.driverClassName";
-    private static final String PROPERTY_NAME_DATABASE_URL = "jdbc.url";
-    private static final String PROPERTY_NAME_DATABASE_USERNAME = "jdbc.user";
-    private static final String PROPERTY_NAME_DATABASE_PASSWORD = "jdbc.pass";
+//    private static final String PROPERTY_NAME_DATABASE_DRIVER = "jdbc.driverClassName";
+//    private static final String PROPERTY_NAME_DATABASE_URL = "jdbc.url";
+//    private static final String PROPERTY_NAME_DATABASE_USERNAME = "jdbc.user";
+//    private static final String PROPERTY_NAME_DATABASE_PASSWORD = "jdbc.pass";
 
     private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String PROPERTY_NAME_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
