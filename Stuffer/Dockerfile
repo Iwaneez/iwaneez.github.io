@@ -1,7 +1,6 @@
-FROM openjdk:8
-
+FROM frolvlad/alpine-oraclejdk8:slim
+VOLUME /tmp
+ADD target/stuffer*.jar /app.jar
+RUN sh -c 'touch /app.jar'
 EXPOSE 8080
-
-COPY target/stuffer*.jar /home/stuBro/stuffer.jar
-
-CMD java -jar /home/stuBro/stuffer.jar -Drun.arguments="--SPRING_PROFILES_ACTIVE=dev"
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"]
