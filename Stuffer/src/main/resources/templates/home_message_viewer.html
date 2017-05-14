@@ -9,15 +9,14 @@
     <p th:text="#{test.hello}">Default hello message</p>
 </h1>
 
-<p th:text="#{person.retrieved(${person.id}, ${person.name})}">Default message</p>
 
-<!--
-#{person.retrieved(${person.id}, ${person.name})}
+<p th:text="${msg}">Default message</p>
+<!-- 
 ${#messages.msg('msgKey')}
 ${#messages.msg('msgKey', param1)}
-${#messages.msg('person.retrieved', person.id, person.name)}
+${#messages.msg('msgKey', param1, param2)}
 ${#messages.msg('msgKey', param1, param2, param3)}
-${#messages.msgWithParams('person.retrieved', new Object[] {person.id, person.name, param3, param4})}
+${#messages.msgWithParams('msgKey', new Object[] {param1, param2, param3, param4})}
  -->
 </body>
 </html>

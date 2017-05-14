@@ -31,6 +31,7 @@ public class HomeController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     private static final String VIEW_HOME = "home";
+    private static final String VIEW_HOME_MESSAGE_VIEWER = "home_message_viewer";
     private static final String VIEW_PLACE_LAYOUT = "place/placeLayout";
 
     private static final String ATTRIBUTEID_MESSAGE = "msg";
@@ -48,18 +49,27 @@ public class HomeController {
         String msg = messageSource.getMessage(MESSAGE_PERSON_INSERTED, new Object[]{person.getId(), person.getName()}, locale);
         model.addAttribute(ATTRIBUTEID_MESSAGE, msg);
 
-        return VIEW_HOME;
+        return VIEW_HOME_MESSAGE_VIEWER;
     }
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public String getPerson(@PathVariable(value = "id") Long id,
                             Model model, Locale locale) {
         Person person = personService.findByID(id);
+        model.addAttribute(person);
+
+        return VIEW_HOME;
+    }
+
+    @RequestMapping(value = "/old/get/{id}", method = RequestMethod.GET)
+    public String getPersonOld(@PathVariable(value = "id") Long id,
+                               Model model, Locale locale) {
+        Person person = personService.findByID(id);
 
         String msg = messageSource.getMessage(MESSAGE_PERSON_RETRIEVED, new Object[]{person.getId(), person.getName()}, locale);
         model.addAttribute(ATTRIBUTEID_MESSAGE, msg);
 
-        return VIEW_HOME;
+        return VIEW_HOME_MESSAGE_VIEWER;
     }
 
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
@@ -70,7 +80,7 @@ public class HomeController {
         String msg = messageSource.getMessage(MESSAGE_PERSON_REMOVED, new Object[]{person.getId(), person.getName()}, locale);
         model.addAttribute(ATTRIBUTEID_MESSAGE, msg);
 
-        return VIEW_HOME;
+        return VIEW_HOME_MESSAGE_VIEWER;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -83,7 +93,7 @@ public class HomeController {
 
         model.addAttribute(ATTRIBUTEID_MESSAGE, "Default page with no action possible.");
 
-        return VIEW_HOME;
+        return VIEW_HOME_MESSAGE_VIEWER;
     }
 
     @RequestMapping(value = "/placeLayout.html", method = RequestMethod.GET)
