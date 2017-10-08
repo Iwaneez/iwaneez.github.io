@@ -7,6 +7,6 @@
 #docker run --name stuffer -p 8080:8080 -e spring.profiles.active=dev --link postgreDB:postgre iwaneez/stuffer
 
 mvn clean package
-sudo docker-compose build
+#sudo docker-compose build
 sudo docker-compose down
-sudo docker-compose up
+sudo docker-compose up --build

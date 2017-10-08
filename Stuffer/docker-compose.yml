@@ -1,27 +1,36 @@
 version: '2'
 services:
 
+  nginx:
+    container_name: nginx_container
+    build: ./docker_images/nginx/
+    ports:
+      - "80:80"
+    depends_on:
+      - stuffer
+
   stuffer:
     container_name: stuffer_container
     build: .
     ports:
-     - "8080:8080"
+      - "8080:8080"
     environment:
-     - spring.profiles.active=dev
+      - spring.profiles.active=dev
     depends_on:
-     - postgreDB
+      - postgreDB
 
   postgreDB:
     container_name: postgreDB_container
     image: "postgres:9.6.2"
     ports:
-     - "5432:5432"
-#    only exposed to containers linked to this
-    expose:
-     - "5432"
+      - "5432:5432"
     environment:
-     - POSTGRES_DB=stuffer
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=root123
+      - POSTGRES_DB=stuffer
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root123
     volumes:
-     - /home/iwaneez/postgreData:/var/lib/postgresql/data
+      - data-volume:/var/lib/postgresql/data
+#      - /home/iwaneez/postgreData:/var/lib/postgresql/data
+
+volumes:
+  data-volume:
