@@ -2,8 +2,8 @@ package com.iwaneez.stuffer.ui.controller;
 
 import com.iwaneez.stuffer.persistence.bo.entity.Person;
 import com.iwaneez.stuffer.service.PersonService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -28,11 +28,10 @@ public class HomeController {
     @Autowired
     private MessageSource messageSource;
 
-    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+//    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     private static final String VIEW_HOME = "home";
     private static final String VIEW_HOME_MESSAGE_VIEWER = "home_message_viewer";
-    private static final String VIEW_PLACE_LAYOUT = "place/placeLayout";
 
     private static final String ATTRIBUTEID_MESSAGE = "msg";
 
@@ -56,6 +55,9 @@ public class HomeController {
     public String getPerson(@PathVariable(value = "id") Long id,
                             Model model, Locale locale) {
         Person person = personService.findByID(id);
+        if (person == null) {
+
+        }
         model.addAttribute(person);
 
         return VIEW_HOME;
@@ -85,7 +87,7 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Locale locale, Model model) {
-        logger.info("Welcome home! The client locale is {}.", locale);
+//        logger.info("Welcome home! The client locale is {}.", locale);
         //Date date = new Date();
         //DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
@@ -94,12 +96,6 @@ public class HomeController {
         model.addAttribute(ATTRIBUTEID_MESSAGE, "Default page with no action possible.");
 
         return VIEW_HOME_MESSAGE_VIEWER;
-    }
-
-    @RequestMapping(value = "/placeLayout.html", method = RequestMethod.GET)
-    public String getPlaceLayout() {
-
-        return VIEW_PLACE_LAYOUT;
     }
 
 }
