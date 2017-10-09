@@ -21,7 +21,7 @@ services:
 
   postgreDB:
     container_name: postgreDB_container
-    image: "postgres:9.6.2"
+    image: "postgres:alpine"
     ports:
       - "5432:5432"
     environment:
@@ -29,8 +29,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root123
     volumes:
-      - data-volume:/var/lib/postgresql/data
+      - data_volume:/var/lib/postgresql/data
 #      - /home/iwaneez/postgreData:/var/lib/postgresql/data
 
 volumes:
-  data-volume:
+  data_volume:
