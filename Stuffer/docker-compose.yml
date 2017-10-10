@@ -3,9 +3,11 @@ services:
 
   nginx:
     container_name: nginx_container
-    build: ./docker_images/nginx/
+    image: "nginx:alpine"
     ports:
       - "80:80"
+    volumes:
+      - ./conf/conf.d:/etc/nginx/conf.d:ro
     depends_on:
       - stuffer
 
