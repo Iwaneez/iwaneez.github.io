@@ -2,8 +2,8 @@ package com.iwaneez.stuffer.ui.controller;
 
 import com.iwaneez.stuffer.persistence.bo.entity.Person;
 import com.iwaneez.stuffer.service.PersonService;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class HomeController {
     @Autowired
     private MessageSource messageSource;
 
-//    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     private static final String VIEW_HOME = "home";
     private static final String VIEW_HOME_MESSAGE_VIEWER = "home_message_viewer";
@@ -87,7 +87,7 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Locale locale, Model model) {
-//        logger.info("Welcome home! The client locale is {}.", locale);
+        logger.info("Welcome home! The client locale is {}.", locale);
         //Date date = new Date();
         //DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
