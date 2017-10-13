@@ -1,15 +1,5 @@
-version: '2'
+version: '3'
 services:
-
-  nginx:
-    container_name: nginx_container
-    image: "nginx:alpine"
-    ports:
-      - "80:80"
-    volumes:
-      - ./conf/conf.d:/etc/nginx/conf.d:ro
-    depends_on:
-      - stuffer
 
   stuffer:
     container_name: stuffer_container
@@ -18,6 +8,9 @@ services:
       - "8080:8080"
     environment:
       - spring.profiles.active=dev
+    networks:
+      - stuffer_network
+      - nginx_network
     depends_on:
       - postgreDB
 
@@ -31,8 +24,14 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root123
     volumes:
-      - data_volume:/var/lib/postgresql/data
-#      - /home/iwaneez/postgreData:/var/lib/postgresql/data
+      - postgre_data:/var/lib/postgresql/data
+    networks:
+      - stuffer_network
 
 volumes:
-  data_volume:
+  postgre_data:
+
+networks:
+  stuffer_network:
+  nginx_network:
+    external: true

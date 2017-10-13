@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+  nginx:
+    container_name: nginx_container
+    image: "nginx:alpine"
+    ports:
+      - "80:80"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d:ro
+
+networks:
+  nginx_network:
+    external: true
