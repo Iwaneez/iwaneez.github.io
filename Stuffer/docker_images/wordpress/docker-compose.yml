@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  wordpress:
+    container_name: wordpress_container
+    image: wordpress:latest
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: mysqlDB:3306
+      WORDPRESS_DB_USER: tech_user
+      WORDPRESS_DB_PASSWORD: Password123
+    networks:
+      - wordpress_network
+      - nginx_network
+    depends_on:
+      - mysqlDB
+
+
+  mysqlDB:
+    container_name: mysqlDB_container
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootPass123
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: tech_user
+      MYSQL_PASSWORD: Password123
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - wordpress_network
+
+volumes:
+  mysql_data:
+
+networks:
+  wordpress_network:
+  nginx_network:
+    external: true
