@@ -10,6 +10,9 @@ services:
       WORDPRESS_DB_HOST: mysqlDB:3306
       WORDPRESS_DB_USER: tech_user
       WORDPRESS_DB_PASSWORD: Password123
+    volumes:
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./iwz:/var/www/html/wp-content/themes/iwz
     networks:
       - wordpress_network
       - nginx_network
