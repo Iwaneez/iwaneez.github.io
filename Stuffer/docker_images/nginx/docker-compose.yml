@@ -10,6 +10,9 @@ services:
     volumes:
       - ./conf.d:/etc/nginx/conf.d:ro
       - ./ssl:/etc/nginx/ssl:ro
+      - ./www:/www/data:ro
+    networks:
+      - nginx_network
 
 networks:
   nginx_network:
