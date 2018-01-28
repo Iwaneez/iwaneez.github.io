@@ -31,7 +31,7 @@
 }
 
 .navbar-default a:hover {
-    color: #E1000A !important;
+    color: #e65a50 !important;
 }
 
 .navbar-default .active > a {
@@ -40,7 +40,7 @@
     /*-moz-border-radius: 1rem;*/
     /*border-radius: 1rem;*/
     background-color: transparent !important;
-    border-bottom-color: #E1000A;
+    border-bottom-color: #e65a50;
 }
 
 .code {
@@ -48,7 +48,7 @@
 }
 
 a.brand:hover {
-    color: #E1000A !important;
+    color: #e65a50 !important;
 }
 
 a.brand > img {
@@ -241,7 +241,7 @@ body {
 footer {
     position: relative;
     padding: 5rem 0rem;
-    /*border-top: 2px solid #E1000A;*/
+    /*border-top: 2px solid #e65a50;*/
     background-color: #303030;
     color: #e7e7e7;
     box-shadow: 0 -3px 8px #000000;
@@ -255,7 +255,7 @@ footer .category-name {
 }
 
 footer .mail .fa {
-    /*color: #E1000A;*/
+    /*color: #e65a50;*/
 }
 
 footer .mail > a {
@@ -267,9 +267,9 @@ footer .mail > a {
     color: #e7e7e7;
 }
 
-footer .mail > a:hover {
+footer .mail > a:hover, footer .mail > a:focus {
     text-decoration: none;
-    color: #E1000A;
+    color: #e65a50;
 }
 
 /* Social */
@@ -298,9 +298,9 @@ footer .mail > a:hover {
 
 .btn-social:hover {
     /*background-color: #e7e7e7;*/
-    /*color: #E1000A;*/
-    border-color: #E1000A;
-    /*box-shadow: 0px 0px 50px #E1000A;*/
+    /*color: #e65a50;*/
+    border-color: #e65a50;
+    /*box-shadow: 0px 0px 50px #e65a50;*/
 }
 
 /*.fa-facebook:hover {*/
