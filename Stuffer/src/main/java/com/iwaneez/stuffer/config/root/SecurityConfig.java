@@ -11,8 +11,8 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import javax.sql.DataSource;
 
 /* If you want to use this security config refer it in main config */
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String LOGIN_URL = "/login";

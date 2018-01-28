@@ -62,6 +62,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Vaadin support -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-spring-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
         <!-- Webjars -->
         <!-- jquery -->
         <!--
@@ -72,23 +79,23 @@
         </dependency>
         -->
         <!-- jquery-ui -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery-ui</artifactId>
-            <version>1.11.4</version>
-        </dependency>
-        <!-- Bootstrap -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.7-1</version>
-        </dependency>
-        <!-- font awesome -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>font-awesome</artifactId>
-            <version>4.7.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.webjars</groupId>-->
+            <!--<artifactId>jquery-ui</artifactId>-->
+            <!--<version>1.11.4</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; Bootstrap &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.webjars</groupId>-->
+            <!--<artifactId>bootstrap</artifactId>-->
+            <!--<version>3.3.7-1</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; font awesome &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.webjars</groupId>-->
+            <!--<artifactId>font-awesome</artifactId>-->
+            <!--<version>4.7.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -97,12 +104,12 @@
         </dependency>
 
         <!-- MySQL -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-java.version}</version>
-            <scope>runtime</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+            <!--<version>${mysql-connector-java.version}</version>-->
+            <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
 
         <!-- PostgreSQL -->
         <dependency>
