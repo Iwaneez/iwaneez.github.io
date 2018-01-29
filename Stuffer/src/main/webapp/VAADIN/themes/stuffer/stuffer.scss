@@ -1,0 +1,17 @@
+@import "../valo/valo";
+
+@mixin stuffer {
+
+  @include valo;
+
+  $v-font-size: 12px;
+  $v-font-family: Tahoma, sans-serif !default;
+
+  $v-background-color: hsl(0, 0, 99.5%);
+  $v-app-background-color: #fff;
+  $v-focus-color: #00385e;
+  $v-link-text-decoration: none !default;
+
+  background-color: red;
+
+}

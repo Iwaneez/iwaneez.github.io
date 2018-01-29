@@ -8,7 +8,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 @SpringUI
-@Theme("valo")
+@Theme("stuffer")
 public class VaadinUI extends UI {
 
     @Override

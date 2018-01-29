@@ -24,6 +24,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- java -->
         <java.version>1.8</java.version>
+        <!-- VAADIN -->
+        <vaadin.plugin.version>8.2.1</vaadin.plugin.version>
         <!-- Persistence -->
         <!-- mysql -->
         <mysql-connector-java.version>5.1.35</mysql-connector-java.version>
@@ -31,7 +33,7 @@
         <postgresql.version>9.1-901-1.jdbc4</postgresql.version>
         <!-- Others -->
         <org.aspectj.version>1.6.10</org.aspectj.version>
-        <org.slf4j.version>1.6.6</org.slf4j.version>
+        <!--<org.slf4j.version>1.6.6</org.slf4j.version>-->
     </properties>
 
     <dependencies>
@@ -51,10 +53,10 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <!-- Thymeleaf -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+        <!--</dependency>-->
         <!-- hot swapping, disable cache for template, enable live reload -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -80,21 +82,21 @@
         -->
         <!-- jquery-ui -->
         <!--<dependency>-->
-            <!--<groupId>org.webjars</groupId>-->
-            <!--<artifactId>jquery-ui</artifactId>-->
-            <!--<version>1.11.4</version>-->
+        <!--<groupId>org.webjars</groupId>-->
+        <!--<artifactId>jquery-ui</artifactId>-->
+        <!--<version>1.11.4</version>-->
         <!--</dependency>-->
         <!--&lt;!&ndash; Bootstrap &ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.webjars</groupId>-->
-            <!--<artifactId>bootstrap</artifactId>-->
-            <!--<version>3.3.7-1</version>-->
+        <!--<groupId>org.webjars</groupId>-->
+        <!--<artifactId>bootstrap</artifactId>-->
+        <!--<version>3.3.7-1</version>-->
         <!--</dependency>-->
         <!--&lt;!&ndash; font awesome &ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.webjars</groupId>-->
-            <!--<artifactId>font-awesome</artifactId>-->
-            <!--<version>4.7.0</version>-->
+        <!--<groupId>org.webjars</groupId>-->
+        <!--<artifactId>font-awesome</artifactId>-->
+        <!--<version>4.7.0</version>-->
         <!--</dependency>-->
 
         <dependency>
@@ -105,10 +107,10 @@
 
         <!-- MySQL -->
         <!--<dependency>-->
-            <!--<groupId>mysql</groupId>-->
-            <!--<artifactId>mysql-connector-java</artifactId>-->
-            <!--<version>${mysql-connector-java.version}</version>-->
-            <!--<scope>runtime</scope>-->
+        <!--<groupId>mysql</groupId>-->
+        <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--<version>${mysql-connector-java.version}</version>-->
+        <!--<scope>runtime</scope>-->
         <!--</dependency>-->
 
         <!-- PostgreSQL -->
@@ -144,6 +146,22 @@
                         <profile>prod</profile>
                     </profiles>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-maven-plugin</artifactId>
+                <version>${vaadin.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>update-theme</goal>
+                            <goal>update-widgetset</goal>
+                            <goal>compile</goal>
+                            <!-- Comment out compile-theme goal to use on-the-fly theme compilation -->
+                            <goal>compile-theme</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
