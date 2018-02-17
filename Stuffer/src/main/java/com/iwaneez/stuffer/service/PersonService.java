@@ -1,6 +1,6 @@
 package com.iwaneez.stuffer.service;
 
-import com.iwaneez.stuffer.persistence.bo.entity.Person;
+import com.iwaneez.stuffer.persistence.entity.Person;
 
 import java.util.List;
 

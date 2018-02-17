@@ -1,4 +1,4 @@
-package com.iwaneez.stuffer.persistence.bo.entity;
+package com.iwaneez.stuffer.persistence.entity;
 
 import javax.persistence.*;
 import java.util.Date;

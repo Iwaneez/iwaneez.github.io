@@ -1,6 +1,6 @@
 package com.iwaneez.stuffer.persistence.dao;
 
-import com.iwaneez.stuffer.persistence.bo.entity.Person;
+import com.iwaneez.stuffer.persistence.entity.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

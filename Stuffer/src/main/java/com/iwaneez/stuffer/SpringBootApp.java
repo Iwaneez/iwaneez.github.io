@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-//@EnableJpaRepositories("com.iwaneez.stuffer.persistence") // in case jpa repo not visible
 public class SpringBootApp {
 
     private final static Logger log = LoggerFactory.getLogger(SpringBootApp.class);

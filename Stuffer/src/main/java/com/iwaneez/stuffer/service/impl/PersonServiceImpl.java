@@ -1,6 +1,6 @@
 package com.iwaneez.stuffer.service.impl;
 
-import com.iwaneez.stuffer.persistence.bo.entity.Person;
+import com.iwaneez.stuffer.persistence.entity.Person;
 import com.iwaneez.stuffer.persistence.dao.PersonRepository;
 import com.iwaneez.stuffer.service.PersonService;
 import org.springframework.stereotype.Service;
