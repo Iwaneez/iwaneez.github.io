@@ -8,8 +8,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.stereotype.Component;
 
-@Component // No SpringView annotation because this view can not be navigated to
-@UIScope
 public class ErrorView extends VerticalLayout implements View {
 
     private Label errorLabel;

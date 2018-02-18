@@ -1,10 +1,8 @@
 package com.iwaneez.stuffer;
 
-import com.iwaneez.stuffer.persistence.repository.RoleRepository;
-import com.iwaneez.stuffer.persistence.repository.UserRepository;
 import com.iwaneez.stuffer.service.SecurityService;
-import com.iwaneez.stuffer.service.UserService;
 import com.iwaneez.stuffer.ui.view.ContentContainer;
+import com.iwaneez.stuffer.ui.view.ErrorView;
 import com.iwaneez.stuffer.ui.view.LoginView;
 import com.iwaneez.stuffer.ui.view.MainView;
 import com.vaadin.annotations.Theme;
@@ -25,16 +23,10 @@ public class VaadinUI extends UI {
     @Autowired
     private ContentContainer contentContainer;
 
-    @Autowired
-    RoleRepository roleRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    UserService userService;
-
     @Override
     protected void init(VaadinRequest request) {
         getPage().setTitle("Vaadin Stuffer App");
+        navigator.setErrorView(ErrorView.class);
         if (!securityService.isLoggedIn()) {
             showLoginView();
         } else {
