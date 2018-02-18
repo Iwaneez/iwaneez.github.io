@@ -1,9 +1,6 @@
 package com.iwaneez.stuffer.persistence.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -11,12 +8,22 @@ import java.util.Objects;
 public class Role {
 
     public static final String ADMIN = "ADMIN";
-    public static final String APP_USER = "APP_USER";
     public static final String USER = "USER";
 
-    String name;
+    private Long id;
+    private String name;
+
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Column(name = "name", nullable = false, length = 50)
     public String getName() {
         return name;
@@ -31,12 +38,13 @@ public class Role {
         if (this == o) return true;
         if (!(o instanceof Role)) return false;
         Role role = (Role) o;
-        return Objects.equals(name, role.name);
+        return Objects.equals(id, role.id) &&
+                Objects.equals(name, role.name);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(name);
+        return Objects.hash(id, name);
     }
 }

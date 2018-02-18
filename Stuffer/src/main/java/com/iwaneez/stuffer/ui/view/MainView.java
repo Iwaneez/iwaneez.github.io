@@ -1,31 +1,34 @@
 package com.iwaneez.stuffer.ui.view;
 
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Notification;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
-import javax.annotation.PostConstruct;
+public class MainView extends CssLayout {
 
-@SpringView(name = MainView.VIEW_NAME)
-public class MainView extends VerticalLayout implements View {
+    private SpringNavigator navigator;
 
-    public static final String VIEW_NAME = "";
 
-//    @Autowired
-//    EventBus.ViewEventBus eventBus;
+    public MainView(SpringNavigator navigator, ContentContainer contentContainer) {
+        this.navigator = navigator;
 
-    @PostConstruct
-    void init() {
-        Button clickMeButton = new Button("ClickMe", clickEvent -> Notification.show("Ya clicked!"));
+        Button menuButton = new Button("Logout", this::logout);
+        VerticalLayout appNavigation = new VerticalLayout(menuButton);
+        appNavigation.setSizeFull();
+        appNavigation.setWidthUndefined();
 
-        addComponent(clickMeButton);
+        HorizontalLayout root = new HorizontalLayout(appNavigation, contentContainer);
+        root.setSizeFull();
+        root.setExpandRatio(contentContainer, 1);
+
+        setSizeFull();
+        addComponent(root);
     }
 
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-
+    private void logout(Button.ClickEvent clickEvent) {
+        getUI().getPage().reload();
+        getSession().close();
     }
 }

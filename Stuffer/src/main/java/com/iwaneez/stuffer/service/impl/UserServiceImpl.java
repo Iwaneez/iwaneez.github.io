@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -19,22 +20,22 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private RoleRepository roleRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public User createUser(User user) {
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        Role role = roleRepository.findOne(Role.USER);
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-
         user.setPassword(encryptedPassword);
-        user.setRoles(roles);
+
+        Optional<Role> roleOptional = roleRepository.findByName(Role.ADMIN);
+        roleOptional.ifPresent(role -> {
+            Set<Role> roles = new HashSet<>();
+            roles.add(role);
+            user.setRoles(roles);
+        });
 
         return userRepository.save(user);
     }

@@ -1,17 +1,41 @@
+//$v-font-size: 12px !default;
+//$v-font-family: Tahoma, sans-serif !default;
+//
+//$v-background-color: hsl(0, 0, 99.5%) !default;
+//$v-app-background-color: #fff !default;
+//$v-focus-color: #00385e !default;
+//$v-link-text-decoration: none !default;
+
+$login-background-image: "img/login-bg.jpg" !default;
+
 @import "../valo/valo";
 
 @mixin stuffer {
-
   @include valo;
 
-  $v-font-size: 12px;
-  $v-font-family: Tahoma, sans-serif !default;
+  // login screen - for small screens, see below
+  .login-screen {
 
-  $v-background-color: hsl(0, 0, 99.5%);
-  $v-app-background-color: #fff;
-  $v-focus-color: #00385e;
-  $v-link-text-decoration: none !default;
+    @if $login-background-image {
+      background-image: url(#{$login-background-image});
+      background-size: cover;
+      background-position: 50% 50%;
+    }
 
-  background-color: red;
+    width: 100%;
+    height: 100%;
+
+    .login-form {
+      //@include valo-panel-style;
+      //border: none;
+      //padding: $v-layout-margin;
+      @include valo-animate-in-fade($duration: 1s);
+
+      table {
+        margin: 12px;
+      }
+    }
+
+  }
 
 }
