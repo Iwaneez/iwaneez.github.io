@@ -11,6 +11,8 @@ public class ContentContainer extends Panel implements ViewDisplay {
 
     public ContentContainer() {
         setSizeFull();
+        setPrimaryStyleName("valo-content");
+        addStyleName("v-scrollable");
     }
 
     @Override
