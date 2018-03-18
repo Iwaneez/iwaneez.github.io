@@ -1,4 +1,4 @@
-package com.iwaneez.stuffer.ui.view;
+package com.iwaneez.stuffer.ui;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewDisplay;
