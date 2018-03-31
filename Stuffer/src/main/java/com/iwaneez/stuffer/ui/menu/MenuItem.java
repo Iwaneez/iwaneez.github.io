@@ -1,5 +1,6 @@
 package com.iwaneez.stuffer.ui.menu;
 
+import com.iwaneez.stuffer.ui.view.SettingsView;
 import com.iwaneez.stuffer.ui.view.TestView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
@@ -7,7 +8,8 @@ import com.vaadin.server.Resource;
 
 public enum MenuItem {
 
-    TEST(TestView.VIEW_NAME, TestView.class, VaadinIcons.HOME, true);
+    TEST(TestView.VIEW_NAME, TestView.class, VaadinIcons.HOME, true),
+    SETTINGS(SettingsView.VIEW_NAME, SettingsView.class, VaadinIcons.COGS, true);
 
     private final String viewName;
     private final Class<? extends View> viewClass;

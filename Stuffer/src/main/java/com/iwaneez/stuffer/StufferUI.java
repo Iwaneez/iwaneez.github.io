@@ -18,6 +18,8 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Locale;
+
 @SpringUI
 @Theme("stuffer")
 public class StufferUI extends UI {
@@ -29,13 +31,18 @@ public class StufferUI extends UI {
     @Autowired
     private ContentContainer contentContainer;
 
+//    private Locale locale;
+
     private final SessionScopedEventBus sessionScopedEventBus = new SessionScopedEventBus();
 
     @Override
     protected void init(VaadinRequest request) {
+//        this.locale = request.getLocale();
+
         getPage().setTitle("Vaadin Stuffer App");
-        Responsive.makeResponsive(this);
         addStyleName(ValoTheme.UI_WITH_MENU);
+
+        Responsive.makeResponsive(this);
 
         setupNavigator();
         if (!securityService.isLoggedIn()) {
@@ -67,6 +74,16 @@ public class StufferUI extends UI {
             }
         });
     }
+
+//    @Override
+//    public Locale getLocale() {
+//        return locale;
+//    }
+//
+//    @Override
+//    public void setLocale(Locale locale) {
+//        this.locale = locale;
+//    }
 
     public static SessionScopedEventBus getSessionScopedEventBus() {
         return ((StufferUI) UI.getCurrent()).sessionScopedEventBus;

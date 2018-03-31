@@ -79,11 +79,15 @@
         </dependency>
 
         <!-- hot swapping, disable cache for template, enable live reload -->
+        <!-- Disabled because of conflicting in: -->
+        <!-- The Class-Path manifest attribute in /home/iwaneez/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/vaadin-sass-compiler-0.9.13.jar referenced one or more files that do not exist: file:/home/iwaneez/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/sac-1.3.jar,file:/home/iwaneez/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/flute-1.3.0.gg2.jar,file:/home/iwaneez/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/yuicompressor-2.4.8.jar,file:/home/iwaneez/.m2/repository/com/vaadin/vaadin-sass-compiler/0.9.13/js-1.7R2.jar-->
+        <!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
