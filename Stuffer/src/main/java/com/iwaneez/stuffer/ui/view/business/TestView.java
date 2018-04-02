@@ -1,4 +1,4 @@
-package com.iwaneez.stuffer.ui.view;
+package com.iwaneez.stuffer.ui.view.business;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -8,15 +8,14 @@ import com.vaadin.ui.VerticalLayout;
 
 import javax.annotation.PostConstruct;
 
+@SpringView(name = TestView.VIEW_NAME)
+public class TestView extends VerticalLayout implements View {
 
-@SpringView(name = SettingsView.VIEW_NAME)
-public class SettingsView extends VerticalLayout implements View {
-
-    public static final String VIEW_NAME = "settingsView";
+    public static final String VIEW_NAME = "testView";
 
     @PostConstruct
     public void init() {
-        addComponent(new Label("tu budu nastavenia jazyka"));
+        addComponent(new Label("toto je test"));
         setSizeFull();
     }
 

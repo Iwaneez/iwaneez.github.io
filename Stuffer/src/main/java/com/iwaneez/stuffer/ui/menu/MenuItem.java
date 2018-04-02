@@ -1,7 +1,7 @@
 package com.iwaneez.stuffer.ui.menu;
 
-import com.iwaneez.stuffer.ui.view.SettingsView;
-import com.iwaneez.stuffer.ui.view.TestView;
+import com.iwaneez.stuffer.ui.view.business.SettingsView;
+import com.iwaneez.stuffer.ui.view.business.TestView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.server.Resource;
