@@ -30,12 +30,6 @@ public class SidebarMenu extends CustomComponent {
         menuContent.addComponent(buildMenuItems());
         menuContent.addComponent(buildToggleButton());
 
-        Button logoutButton = new Button("Logout", event -> {
-            getUI().getPage().reload();
-            getSession().close();
-        });
-//        menuContent.addComponent(logoutButton);
-
         return menuContent;
     }
 
@@ -59,6 +53,7 @@ public class SidebarMenu extends CustomComponent {
             Component menuItemComponent = new MenuItemButton(menuItem);
             menuItemsLayout.addComponent(menuItemComponent);
         }
+        menuItemsLayout.addComponent(buildLogoutButton());
 
         return menuItemsLayout;
     }
@@ -77,6 +72,16 @@ public class SidebarMenu extends CustomComponent {
         valoMenuToggleButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 
         return valoMenuToggleButton;
+    }
+
+    private Component buildLogoutButton() {
+        Button logoutButton = new Button("Logout", event -> {
+            getUI().getPage().reload();
+            getSession().close();
+        });
+        logoutButton.setStyleName(ValoTheme.BUTTON_LINK);
+
+        return logoutButton;
     }
 
     public final class MenuItemButton extends Button {

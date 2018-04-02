@@ -6,6 +6,8 @@
 //$v-focus-color: #00385e !default;
 //$v-link-text-decoration: none !default;
 
+$v-font-family: Arial, Helvetica, sans-serif !default;
+
 $login-background-image: "img/login-bg.jpg" !default;
 
 @import "../valo/valo";
@@ -35,7 +37,6 @@ $login-background-image: "img/login-bg.jpg" !default;
         margin: 12px;
       }
     }
-
   }
 
 }
