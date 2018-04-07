@@ -2,6 +2,8 @@ package com.iwaneez.stuffer.ui.menu;
 
 import com.google.common.eventbus.Subscribe;
 import com.iwaneez.stuffer.event.ViewChangedEvent;
+import com.iwaneez.stuffer.ui.component.Localizable;
+import com.iwaneez.stuffer.util.Localization;
 import com.iwaneez.stuffer.util.SessionScopedEventBus;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.ui.ContentMode;
@@ -79,12 +81,13 @@ public class SidebarMenu extends CustomComponent {
             getUI().getPage().reload();
             getSession().close();
         });
+        logoutButton.setIcon(VaadinIcons.SIGN_OUT);
         logoutButton.setStyleName(ValoTheme.BUTTON_LINK);
 
         return logoutButton;
     }
 
-    public final class MenuItemButton extends Button {
+    public final class MenuItemButton extends Button implements Localizable {
 
         private static final String STYLE_SELECTED = "selected";
 
@@ -96,8 +99,9 @@ public class SidebarMenu extends CustomComponent {
 
             setPrimaryStyleName(ValoTheme.MENU_ITEM);
             setIcon(menuItem.getIcon());
-            setCaption(menuItem.getViewName().substring(0, 1).toUpperCase() + menuItem.getViewName().substring(1));
             addClickListener(event -> UI.getCurrent().getNavigator().navigateTo(menuItem.getViewName()));
+
+            localize();
         }
 
         @Subscribe
@@ -106,6 +110,11 @@ public class SidebarMenu extends CustomComponent {
             if (viewChangedEvent.getMenuItem() == menuItem) {
                 addStyleName(STYLE_SELECTED);
             }
+        }
+
+        @Override
+        public void localize() {
+            setCaption(Localization.get(menuItem.getLocalizationId()));
         }
     }
 }

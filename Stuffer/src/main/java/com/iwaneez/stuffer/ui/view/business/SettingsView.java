@@ -13,7 +13,7 @@ import java.util.Locale;
 @SpringView(name = SettingsView.VIEW_NAME)
 public class SettingsView extends VerticalLayout implements View, Localizable {
 
-    public static final String VIEW_NAME = "settingsView";
+    public static final String VIEW_NAME = "SettingsView";
 
     private Panel languageSettings;
     private ComboBox<Locale> langComboBox;

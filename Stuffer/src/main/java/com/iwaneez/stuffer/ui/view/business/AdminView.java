@@ -9,14 +9,14 @@ import com.vaadin.ui.VerticalLayout;
 
 import javax.annotation.PostConstruct;
 
-@SpringView(name = TestView.VIEW_NAME)
-public class TestView extends VerticalLayout implements View {
+@SpringView(name = AdminView.VIEW_NAME)
+public class AdminView extends VerticalLayout implements View {
 
-    public static final String VIEW_NAME = "TestVew";
+    public static final String VIEW_NAME = "AdminView";
 
     @PostConstruct
     public void init() {
-        addComponent(new Label(Localization.get("test.title")));
+        addComponent(new Label(Localization.get("administraion.title")));
         setSizeFull();
     }
 
