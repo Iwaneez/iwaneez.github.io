@@ -82,7 +82,7 @@ public class SidebarMenu extends CustomComponent {
             getSession().close();
         });
         logoutButton.setIcon(VaadinIcons.SIGN_OUT);
-        logoutButton.setStyleName(ValoTheme.BUTTON_LINK);
+        logoutButton.addStyleNames(ValoTheme.BUTTON_LINK, "logout");
 
         return logoutButton;
     }

@@ -15046,3 +15046,9 @@ div.v-layout.v-horizontal.v-widget {
 .stuffer .login-screen .login-form table {
 	margin: 12px;
 }
+
+.stuffer .v-button-logout {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+}
