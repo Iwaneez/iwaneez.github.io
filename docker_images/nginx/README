@@ -1,0 +1,2 @@
+# place at the end of crontab: sudo crontab -e
+0 0 */15 * * docker run -t --rm -v /home/ubuntu/nginx/certs:/etc/letsencrypt -v /home/ubuntu/nginx/certs-data:/data/letsencrypt -v /var/log/letsencrypt:/var/log/letsencrypt certbot/certbot renew --webroot --webroot-path=/data/letsencrypt && docker kill -s HUP nginx_container >/dev/null 2>&1

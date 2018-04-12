@@ -9,7 +9,8 @@ services:
       - "443:443"
     volumes:
       - ./conf.d:/etc/nginx/conf.d:ro
-      - ./ssl:/etc/nginx/ssl:ro
+      - ./certs:/etc/letsencrypt
+      - ./certs-data:/data/letsencrypt
       - ./www:/www/data:ro
     networks:
       - nginx_network
