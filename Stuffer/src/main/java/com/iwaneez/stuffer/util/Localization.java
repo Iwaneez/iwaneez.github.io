@@ -4,6 +4,7 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.ui.UI;
 import org.springframework.context.MessageSource;
 
+import javax.servlet.http.Cookie;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -15,29 +16,32 @@ public class Localization {
     public static final List<Locale> supportedLocales = Arrays.asList(Locale.US, new Locale("sk", "SK"));
 
     public static Locale getLocale() {
-        Locale locale = getBrowserLocale();
+        Locale locale = getCookieLocale();
+        if (locale == null) {
+            locale = getBrowserLocale();
+        }
         if (locale == null) {
             locale = getDefaultLocale();
         }
         return locale;
     }
 
-//    private static Locale getCookieLocale() {
-//        if (VaadinService.getCurrentRequest().getCookies() == null) {
-//            return null;
-//        }
-//        for (Cookie cookie : VaadinService.getCurrentRequest().getCookies()) {
-//            if (cookie.getName().equals(COOKIE_LOCALE)) {
-//                String languageTag = cookie.getValue();
-//                for (Locale locale : supportedLocales) {
-//                    if (locale.toLanguageTag().equals(languageTag)) {
-//                        return locale;
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
+    private static Locale getCookieLocale() {
+        if (VaadinService.getCurrentRequest().getCookies() == null) {
+            return null;
+        }
+        for (Cookie cookie : VaadinService.getCurrentRequest().getCookies()) {
+            if (cookie.getName().equals(COOKIE_LOCALE)) {
+                String languageTag = cookie.getValue();
+                for (Locale locale : supportedLocales) {
+                    if (locale.toLanguageTag().equals(languageTag)) {
+                        return locale;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
     private static Locale getBrowserLocale() {
         Locale browserLocale = VaadinService.getCurrentRequest().getLocale();
@@ -56,6 +60,15 @@ public class Localization {
         Locale defaultLocale = supportedLocales.get(0);
 
         return defaultLocale;
+    }
+
+    public static void setLocaleCookie(Locale locale) {
+        Cookie cookie = new Cookie(COOKIE_LOCALE, locale.toLanguageTag());
+        cookie.setMaxAge(300);
+        cookie.setPath("/");
+
+        // Save cookie
+        VaadinService.getCurrentResponse().addCookie(cookie);
     }
 
     public static String get(String code) {

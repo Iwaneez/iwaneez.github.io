@@ -41,8 +41,9 @@ public class StufferUI extends UI {
     protected void init(VaadinRequest request) {
         getPage().setTitle("Vaadin Stuffer App");
         addStyleName(ValoTheme.UI_WITH_MENU);
-
         Responsive.makeResponsive(this);
+
+        setLocale(Localization.getLocale());
 
         setupNavigator();
         if (!securityService.isLoggedIn()) {
@@ -69,16 +70,16 @@ public class StufferUI extends UI {
 
     private void showMainView() {
         setContent(new MainView(contentContainer));
-        setLocale(Localization.getLocale());
     }
 
     private void showLoginView() {
-        setContent(new LoginView(securityService, () -> showMainView()));
+        setContent(new LoginView(securityService, this::showMainView));
     }
 
     @Override
     public void setLocale(Locale locale) {
         super.setLocale(locale);
+        Localization.setLocaleCookie(locale);
         localize(getContent());
     }
 
