@@ -28,14 +28,19 @@ import java.util.Locale;
 @Theme("stuffer")
 public class StufferUI extends UI {
 
-    @Autowired
-    private SecurityService securityService;
-    @Autowired
-    private SpringNavigator navigator;
-    @Autowired
-    private ContentContainer contentContainer;
+    private final SecurityService securityService;
+    private final SpringNavigator navigator;
+    private final ContentContainer contentContainer;
 
-    private final SessionScopedEventBus sessionScopedEventBus = new SessionScopedEventBus();
+    private final SessionScopedEventBus sessionScopedEventBus;
+
+    @Autowired
+    public StufferUI(SecurityService securityService, SpringNavigator navigator, ContentContainer contentContainer) {
+        this.securityService = securityService;
+        this.navigator = navigator;
+        this.contentContainer = contentContainer;
+        this.sessionScopedEventBus = new SessionScopedEventBus();
+    }
 
     @Override
     protected void init(VaadinRequest request) {

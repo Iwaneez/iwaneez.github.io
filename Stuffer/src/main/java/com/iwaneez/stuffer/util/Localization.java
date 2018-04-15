@@ -64,7 +64,7 @@ public class Localization {
 
     public static void setLocaleCookie(Locale locale) {
         Cookie cookie = new Cookie(COOKIE_LOCALE, locale.toLanguageTag());
-        cookie.setMaxAge(300);
+        cookie.setMaxAge(600);
         cookie.setPath("/");
 
         // Save cookie
