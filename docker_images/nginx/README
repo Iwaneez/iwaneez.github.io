@@ -5,4 +5,4 @@ Then if you want to regularly renew the validity edit the crontab:
     sudo crontab -e
 
 and add to the end of file:
-    0 0 */15 * * docker run -t --rm -v /home/ubuntu/nginx/certs:/etc/letsencrypt -v /home/ubuntu/nginx/certs-data:/data/letsencrypt -v /var/log/letsencrypt:/var/log/letsencrypt certbot/certbot renew --webroot --webroot-path=/data/letsencrypt && docker kill -s HUP nginx_container >/dev/null 2>&1
+    0 0 */15 * * sudo docker run -t --rm -v /home/ubuntu/nginx/certs:/etc/letsencrypt -v /home/ubuntu/nginx/certs-data:/data/letsencrypt -v /var/log/letsencrypt:/var/log/letsencrypt certbot/certbot renew --webroot --webroot-path=/data/letsencrypt && sudo docker kill -s HUP nginx_container >/dev/null 2>&1
