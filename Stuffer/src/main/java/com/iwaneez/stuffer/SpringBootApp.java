@@ -5,19 +5,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@EnableScheduling
 public class SpringBootApp {
 
-    private final static Logger log = LoggerFactory.getLogger(SpringBootApp.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(SpringBootApp.class);
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootApp.class, args);
 
-        log.info("+----------------------------------+");
-        log.info("| App                              |");
-        log.info("+----------------------------------+");
-        log.info("| http://localhost:8080/           |");
-        log.info("+----------------------------------+");
+        LOGGER.info("+----------------------------------+");
+        LOGGER.info("| App                              |");
+        LOGGER.info("+----------------------------------+");
+        LOGGER.info("| http://localhost:8080/           |");
+        LOGGER.info("+----------------------------------+");
     }
 }

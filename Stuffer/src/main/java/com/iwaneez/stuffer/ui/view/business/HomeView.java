@@ -9,10 +9,10 @@ import com.vaadin.ui.VerticalLayout;
 
 import javax.annotation.PostConstruct;
 
-@SpringView(name = TestView.VIEW_NAME)
-public class TestView extends VerticalLayout implements View {
+@SpringView(name = HomeView.VIEW_NAME)
+public class HomeView extends VerticalLayout implements View {
 
-    public static final String VIEW_NAME = "TestVew";
+    public static final String VIEW_NAME = "HomeVew";
 
     @PostConstruct
     public void init() {

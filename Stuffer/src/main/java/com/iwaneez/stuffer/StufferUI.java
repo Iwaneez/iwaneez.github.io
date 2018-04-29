@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Locale;
 
+//@Push(value = PushMode.MANUAL, transport = Transport.LONG_POLLING)
 @SpringUI
 @Theme("stuffer")
 public class StufferUI extends UI {

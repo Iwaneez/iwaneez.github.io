@@ -2,14 +2,16 @@ package com.iwaneez.stuffer.ui.menu;
 
 import com.iwaneez.stuffer.ui.view.business.AdminView;
 import com.iwaneez.stuffer.ui.view.business.SettingsView;
-import com.iwaneez.stuffer.ui.view.business.TestView;
+import com.iwaneez.stuffer.ui.view.business.HomeView;
+import com.iwaneez.stuffer.ui.view.business.ExchangeView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.server.Resource;
 
 public enum MenuItem {
 
-    TEST(TestView.VIEW_NAME, TestView.class, VaadinIcons.HOME, "menu.item.title.test", true),
+    HOME(HomeView.VIEW_NAME, HomeView.class, VaadinIcons.HOME, "menu.item.title.home", true),
+    TRADING(ExchangeView.VIEW_NAME, ExchangeView.class, VaadinIcons.CHART, "menu.item.title.exchange", true),
     SETTINGS(SettingsView.VIEW_NAME, SettingsView.class, VaadinIcons.COGS, "menu.item.title.settings", true),
     ADMINISTRATION(AdminView.VIEW_NAME, AdminView.class, VaadinIcons.DATABASE, "menu.item.title.administration", true);
 
