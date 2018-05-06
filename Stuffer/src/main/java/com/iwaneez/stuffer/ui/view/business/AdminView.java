@@ -16,7 +16,7 @@ public class AdminView extends VerticalLayout implements View {
 
     @PostConstruct
     public void init() {
-        addComponent(new Label(Localization.get("administraion.title")));
+        addComponent(new Label(Localization.get("administration.title")));
         setSizeFull();
     }
 

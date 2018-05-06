@@ -1,6 +1,9 @@
 package com.iwaneez.stuffer.util;
 
+import com.iwaneez.stuffer.ui.component.Localizable;
 import com.vaadin.server.VaadinService;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.UI;
 import org.springframework.context.MessageSource;
 
@@ -69,6 +72,15 @@ public class Localization {
 
         // Save cookie
         VaadinService.getCurrentResponse().addCookie(cookie);
+    }
+
+    public static void localize(Component component) {
+        if (component instanceof Localizable) {
+            ((Localizable) component).localize();
+        }
+        if (component instanceof HasComponents) {
+            ((HasComponents) component).iterator().forEachRemaining(Localization::localize);
+        }
     }
 
     public static String get(String code) {

@@ -5,7 +5,7 @@ delete from role;
 
 -- inserting data
 insert into users(id, username, password)
-values (1, 'admin','$2a$10$xhgDqd0v5qCRb4niT9MjyOO7VqCRSa.sa4hitP6TXF98qC.KeKIv2');
+values (1, 'admin','$2a$10$Yd.FY0Oz6WOlXP.j2ha7nOEK1PBYMcBw676JcK1U7hdAc4M5TH9LG');
 
 insert into role(id, name)
 values (1, 'ADMIN');

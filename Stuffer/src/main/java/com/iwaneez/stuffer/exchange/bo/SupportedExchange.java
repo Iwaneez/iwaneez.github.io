@@ -2,10 +2,12 @@ package com.iwaneez.stuffer.exchange.bo;
 
 import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.binance.BinanceExchange;
+import org.knowm.xchange.kraken.KrakenExchange;
 
 public enum SupportedExchange {
 
-    BINANCE("Binance", BinanceExchange.class);
+    BINANCE("Binance", BinanceExchange.class),
+    KRAKEN("Kraken",KrakenExchange.class);
 
     String name;
     Class<? extends BaseExchange> exchangeClass;

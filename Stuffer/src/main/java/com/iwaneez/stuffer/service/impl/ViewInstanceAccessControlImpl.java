@@ -1,6 +1,8 @@
 package com.iwaneez.stuffer.service.impl;
 
+import com.iwaneez.stuffer.persistence.entity.Role;
 import com.iwaneez.stuffer.service.SecurityService;
+import com.iwaneez.stuffer.ui.view.business.AdminView;
 import com.vaadin.navigator.View;
 import com.vaadin.spring.access.ViewInstanceAccessControl;
 import com.vaadin.ui.UI;
@@ -13,27 +15,16 @@ public class ViewInstanceAccessControlImpl implements ViewInstanceAccessControl 
     @Autowired
     private SecurityService securityService;
 
+    private Class[] adminClasses = new Class[]{AdminView.class};
+
     @Override
     public boolean isAccessGranted(UI ui, String beanName, View view) {
+        for (Class clazz : adminClasses) {
+            if (clazz.isInstance(view)) {
+                return securityService.hasRole(Role.ADMIN);
+            }
+        }
         return true;
-//        if (securityService.hasRole(Role.ADMIN)) {
-//            return true;
-//        } else if (securityService.hasRole(Role.APP_USER)) {
-//            return true;
-//        } else if (securityService.hasRole(Role.USER)) {
-//            if (!(view instanceof NamedView)) {
-//                return false;
-//            }
-//            return Arrays.asList(new String[] {
-//                    DashboardView.VIEW_NAME,
-//                    ApplicationLogView.VIEW_NAME,
-//                    ExceptionStackTraceView.VIEW_NAME,
-//                    AuditView.VIEW_NAME,
-//                    AboutView.VIEW_NAME
-//            }).contains(((NamedView) view).getViewName());
-//        } else {
-//            return false;
-//        }
     }
 
 }

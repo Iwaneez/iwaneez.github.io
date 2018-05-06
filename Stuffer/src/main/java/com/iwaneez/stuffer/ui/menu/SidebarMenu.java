@@ -1,8 +1,10 @@
 package com.iwaneez.stuffer.ui.menu;
 
 import com.google.common.eventbus.Subscribe;
-import com.iwaneez.stuffer.event.ViewChangedEvent;
+import com.iwaneez.stuffer.event.BusEvent;
+import com.iwaneez.stuffer.service.SecurityService;
 import com.iwaneez.stuffer.ui.component.Localizable;
+import com.iwaneez.stuffer.util.ApplicationContextUtils;
 import com.iwaneez.stuffer.util.Localization;
 import com.iwaneez.stuffer.util.SessionScopedEventBus;
 import com.vaadin.icons.VaadinIcons;
@@ -14,9 +16,13 @@ public class SidebarMenu extends CustomComponent {
 
     private static final String STYLE_VISIBLE = "valo-menu-visible";
 
+    private final SecurityService securityService;
+
 
     public SidebarMenu() {
         SessionScopedEventBus.register(this);
+        securityService = ApplicationContextUtils.getApplicationContext().getBean(SecurityService.class);
+
         setPrimaryStyleName(ValoTheme.MENU_ROOT);
         setSizeUndefined();
 
@@ -24,7 +30,7 @@ public class SidebarMenu extends CustomComponent {
     }
 
     private Component buildContent() {
-        final CssLayout menuContent = new CssLayout();
+        CssLayout menuContent = new CssLayout();
         menuContent.addStyleName(ValoTheme.MENU_PART);
         menuContent.addStyleNames("sidebar", "no-vertical-drag-hints", "no-horizontal-drag-hints");
 
@@ -52,12 +58,23 @@ public class SidebarMenu extends CustomComponent {
         menuItemsLayout.addStyleName("valo-menuitems");
 
         for (MenuItem menuItem : MenuItem.values()) {
-            Component menuItemComponent = new MenuItemButton(menuItem);
-            menuItemsLayout.addComponent(menuItemComponent);
+            if (!isVisible(menuItem)) {
+                continue;
+            }
+            menuItemsLayout.addComponent(new MenuItemButton(menuItem));
         }
         menuItemsLayout.addComponent(buildLogoutButton());
 
         return menuItemsLayout;
+    }
+
+    private boolean isVisible(MenuItem menuItem) {
+        for (String role : menuItem.getMandatoryRoles()) {
+            if (!securityService.hasRole(role)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private Component buildToggleButton() {
@@ -87,7 +104,7 @@ public class SidebarMenu extends CustomComponent {
         return logoutButton;
     }
 
-    public final class MenuItemButton extends Button implements Localizable {
+    private static class MenuItemButton extends Button implements Localizable {
 
         private static final String STYLE_SELECTED = "selected";
 
@@ -105,7 +122,7 @@ public class SidebarMenu extends CustomComponent {
         }
 
         @Subscribe
-        public void postViewChange(ViewChangedEvent viewChangedEvent) {
+        public void postViewChange(BusEvent.ViewChangedEvent viewChangedEvent) {
             removeStyleName(STYLE_SELECTED);
             if (viewChangedEvent.getMenuItem() == menuItem) {
                 addStyleName(STYLE_SELECTED);
