@@ -7,7 +7,7 @@ import org.knowm.xchange.kraken.KrakenExchange;
 public enum SupportedExchange {
 
     BINANCE("Binance", BinanceExchange.class),
-    KRAKEN("Kraken",KrakenExchange.class);
+    KRAKEN("Kraken", KrakenExchange.class);
 
     String name;
     Class<? extends BaseExchange> exchangeClass;

@@ -161,6 +161,7 @@ public class PairInfo extends VerticalLayout implements Localizable {
         List<CurrencyPair> pairs = selectedExchange.getExchangeSymbols();
         pairs.sort(Comparator.comparing(CurrencyPair::toString));
         currencyPairComboBox.setItems(pairs);
+        currencyPairComboBox.setSelectedItem(null);
     }
 
     @Subscribe

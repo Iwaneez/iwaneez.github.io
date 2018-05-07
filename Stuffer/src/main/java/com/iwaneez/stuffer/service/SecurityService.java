@@ -1,5 +1,7 @@
 package com.iwaneez.stuffer.service;
 
+import com.iwaneez.stuffer.persistence.entity.RoleType;
+
 public interface SecurityService {
 
     boolean isLoggedIn();
@@ -8,6 +10,6 @@ public interface SecurityService {
 
     String getCurrentUsername();
 
-    boolean hasRole(String role);
+    boolean hasRole(RoleType type);
 
 }

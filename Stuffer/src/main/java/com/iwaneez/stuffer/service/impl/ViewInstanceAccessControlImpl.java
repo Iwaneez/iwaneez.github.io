@@ -1,6 +1,6 @@
 package com.iwaneez.stuffer.service.impl;
 
-import com.iwaneez.stuffer.persistence.entity.Role;
+import com.iwaneez.stuffer.persistence.entity.RoleType;
 import com.iwaneez.stuffer.service.SecurityService;
 import com.iwaneez.stuffer.ui.view.business.AdminView;
 import com.vaadin.navigator.View;
@@ -21,7 +21,7 @@ public class ViewInstanceAccessControlImpl implements ViewInstanceAccessControl 
     public boolean isAccessGranted(UI ui, String beanName, View view) {
         for (Class clazz : adminClasses) {
             if (clazz.isInstance(view)) {
-                return securityService.hasRole(Role.ADMIN);
+                return securityService.hasRole(RoleType.ADMIN);
             }
         }
         return true;

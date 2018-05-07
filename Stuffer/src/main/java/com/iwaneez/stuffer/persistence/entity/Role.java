@@ -7,12 +7,8 @@ import java.util.Objects;
 @Table(name = "role")
 public class Role {
 
-    public static final String ADMIN = "ADMIN";
-    public static final String USER = "USER";
-
     private Long id;
-    private String name;
-
+    private RoleType type;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,27 +20,27 @@ public class Role {
         this.id = id;
     }
 
-    @Column(name = "name", nullable = false, length = 50)
-    public String getName() {
-        return name;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "type", nullable = false, length = 50)
+    public RoleType getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(RoleType type) {
+        this.type = type;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Role)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
         return Objects.equals(id, role.id) &&
-                Objects.equals(name, role.name);
+                type == role.type;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, name);
+        return Objects.hash(id, type);
     }
 }

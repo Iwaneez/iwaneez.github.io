@@ -1,6 +1,6 @@
 package com.iwaneez.stuffer.ui.menu;
 
-import com.iwaneez.stuffer.persistence.entity.Role;
+import com.iwaneez.stuffer.persistence.entity.RoleType;
 import com.iwaneez.stuffer.ui.view.business.AdminView;
 import com.iwaneez.stuffer.ui.view.business.ExchangeView;
 import com.iwaneez.stuffer.ui.view.business.HomeView;
@@ -11,19 +11,19 @@ import com.vaadin.server.Resource;
 
 public enum MenuItem {
 
-    HOME(HomeView.VIEW_NAME, HomeView.class, VaadinIcons.HOME, "menu.item.title.home", new String[]{Role.USER}),
-    TRADING(ExchangeView.VIEW_NAME, ExchangeView.class, VaadinIcons.LINE_CHART, "menu.item.title.exchange", new String[]{Role.USER}),
-    SETTINGS(SettingsView.VIEW_NAME, SettingsView.class, VaadinIcons.COGS, "menu.item.title.settings", new String[]{Role.USER}),
-    ADMINISTRATION(AdminView.VIEW_NAME, AdminView.class, VaadinIcons.DATABASE, "menu.item.title.administration", new String[]{Role.ADMIN});
+    HOME(HomeView.VIEW_NAME, HomeView.class, VaadinIcons.HOME, "menu.item.title.home", new RoleType[]{RoleType.USER}),
+    TRADING(ExchangeView.VIEW_NAME, ExchangeView.class, VaadinIcons.LINE_CHART, "menu.item.title.exchange", new RoleType[]{RoleType.USER}),
+    SETTINGS(SettingsView.VIEW_NAME, SettingsView.class, VaadinIcons.COGS, "menu.item.title.settings", new RoleType[]{RoleType.USER}),
+    ADMINISTRATION(AdminView.VIEW_NAME, AdminView.class, VaadinIcons.DATABASE, "menu.item.title.administration", new RoleType[]{RoleType.ADMIN});
 
     private final String viewName;
     private final Class<? extends View> viewClass;
     private final Resource icon;
     private final String localizationId;
-    private final String[] mandatoryRoles;
+    private final RoleType[] mandatoryRoles;
 
     MenuItem(String viewName, Class<? extends View> viewClass, final Resource icon,
-             String localizationId, String[] mandatoryRoles) {
+             String localizationId, RoleType[] mandatoryRoles) {
         this.viewName = viewName;
         this.viewClass = viewClass;
         this.icon = icon;
@@ -47,7 +47,7 @@ public enum MenuItem {
         return localizationId;
     }
 
-    public String[] getMandatoryRoles() {
+    public RoleType[] getMandatoryRoles() {
         return mandatoryRoles;
     }
 

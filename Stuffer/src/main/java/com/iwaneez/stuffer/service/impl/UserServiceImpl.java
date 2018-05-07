@@ -1,6 +1,7 @@
 package com.iwaneez.stuffer.service.impl;
 
 import com.iwaneez.stuffer.persistence.entity.Role;
+import com.iwaneez.stuffer.persistence.entity.RoleType;
 import com.iwaneez.stuffer.persistence.entity.User;
 import com.iwaneez.stuffer.persistence.repository.RoleRepository;
 import com.iwaneez.stuffer.persistence.repository.UserRepository;
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
 
-        Optional<Role> roleOptional = roleRepository.findByName(Role.ADMIN);
+        Optional<Role> roleOptional = roleRepository.findByType(RoleType.USER);
         roleOptional.ifPresent(role -> {
             Set<Role> roles = new HashSet<>();
             roles.add(role);

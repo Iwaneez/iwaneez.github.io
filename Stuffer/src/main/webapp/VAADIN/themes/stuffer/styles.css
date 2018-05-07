@@ -993,6 +993,10 @@
  */
 
 /**
+ *
+ */
+
+/**
  * @group window
  */
 
@@ -1053,7 +1057,7 @@
  */
 
 .v-vaadin-version:after {
-	content: "8.4.0";
+	content: "8.3.3";
 }
 
 .v-widget {
@@ -12586,7 +12590,6 @@ div.v-layout.v-horizontal.v-widget {
 	width: 100% !important;
 	height: auto !important;
 	padding: 9px;
-	display: inline-flex;
 }
 
 .stuffer .v-colorpicker-preview-textfield {

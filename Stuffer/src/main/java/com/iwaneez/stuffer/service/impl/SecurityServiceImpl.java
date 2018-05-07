@@ -1,5 +1,6 @@
 package com.iwaneez.stuffer.service.impl;
 
+import com.iwaneez.stuffer.persistence.entity.RoleType;
 import com.iwaneez.stuffer.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,8 +52,8 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public boolean hasRole(String role) {
+    public boolean hasRole(RoleType type) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null && authentication.getAuthorities().contains(new SimpleGrantedAuthority(role));
+        return authentication != null && authentication.getAuthorities().contains(new SimpleGrantedAuthority(type.name()));
     }
 }

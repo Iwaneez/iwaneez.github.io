@@ -2,6 +2,7 @@ package com.iwaneez.stuffer.ui.menu;
 
 import com.google.common.eventbus.Subscribe;
 import com.iwaneez.stuffer.event.BusEvent;
+import com.iwaneez.stuffer.persistence.entity.RoleType;
 import com.iwaneez.stuffer.service.SecurityService;
 import com.iwaneez.stuffer.ui.component.Localizable;
 import com.iwaneez.stuffer.util.ApplicationContextUtils;
@@ -69,7 +70,7 @@ public class SidebarMenu extends CustomComponent {
     }
 
     private boolean isVisible(MenuItem menuItem) {
-        for (String role : menuItem.getMandatoryRoles()) {
+        for (RoleType role : menuItem.getMandatoryRoles()) {
             if (!securityService.hasRole(role)) {
                 return false;
             }

@@ -8,6 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+
     Long id;
     String username;
     String password;
