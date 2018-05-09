@@ -20,39 +20,37 @@ public class NavigationComponent extends HorizontalLayout {
     private PageLoader pageLoader;
 
     private final Label pagingInfo = new Label(pageNumber + "/" + totalPages);
-    private final Button first, prev, next, last;
-    private final ComboBox<Integer> pageSizeBox;
 
     public NavigationComponent(PageLoader pageLoader) {
         super();
         this.pageLoader = pageLoader;
 
-        first = new Button("<<", event -> {
+        Button first = new Button("<<", event -> {
             pageNumber = 1;
             reloadPage();
         });
 
-        prev = new Button("<", event -> {
+        Button prev = new Button("<", event -> {
             pageNumber = (pageNumber <= 1) ? 1 : pageNumber - 1;
             reloadPage();
         });
 
-        next = new Button(">", event -> {
+        Button next = new Button(">", event -> {
             pageNumber = (pageNumber >= totalPages) ? totalPages : pageNumber + 1;
             reloadPage();
         });
 
-        last = new Button(">>", event -> {
+        Button last = new Button(">>", event -> {
             pageNumber = totalPages;
             reloadPage();
         });
 
-        pageSizeBox = createPageSizeBox();
+        ComboBox<Integer> pageSizeBox = createPageSizeBox();
 
         addComponents(first, prev, pagingInfo, next, last, pageSizeBox);
     }
 
-    private ComboBox createPageSizeBox() {
+    private ComboBox<Integer> createPageSizeBox() {
         ComboBox<Integer> comboBox = new ComboBox<>();
         comboBox.setItems(pageSizes);
         comboBox.setSelectedItem(pageSize);

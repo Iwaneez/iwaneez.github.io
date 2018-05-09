@@ -1,7 +1,7 @@
-package com.iwaneez.stuffer.ui.component.exchange;
+package com.iwaneez.stuffer.ui.view.exchange;
 
 import com.google.common.eventbus.Subscribe;
-import com.iwaneez.stuffer.event.BusEvent.RefreshExchangeDataEvent;
+import com.iwaneez.stuffer.event.BusEvent;
 import com.iwaneez.stuffer.exchange.bo.SupportedExchange;
 import com.iwaneez.stuffer.exchange.service.ExchangeService;
 import com.iwaneez.stuffer.ui.component.Localizable;
@@ -160,12 +160,13 @@ public class PairInfo extends VerticalLayout implements Localizable {
         selectedExchange = exchangeService.getExchange(event.getValue());
         List<CurrencyPair> pairs = selectedExchange.getExchangeSymbols();
         pairs.sort(Comparator.comparing(CurrencyPair::toString));
+
         currencyPairComboBox.setItems(pairs);
-        currencyPairComboBox.setSelectedItem(null);
+        currencyPairComboBox.setSelectedItem(selectedPair = null);
     }
 
     @Subscribe
-    private void refreshData(RefreshExchangeDataEvent event) {
+    private void refreshData(BusEvent.RefreshExchangeDataEvent event) {
         if (selectedExchange == null) {
             return;
         }

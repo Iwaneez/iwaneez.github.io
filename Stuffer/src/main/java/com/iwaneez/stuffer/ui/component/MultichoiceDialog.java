@@ -4,6 +4,9 @@ import com.vaadin.ui.*;
 
 public class MultichoiceDialog extends Window {
 
+    private final HorizontalLayout mainLayout;
+
+
     public MultichoiceDialog(DialogType dialogType, String text, Option... options) {
         super(dialogType.getValue().toUpperCase());
         setModal(true);
@@ -13,16 +16,9 @@ public class MultichoiceDialog extends Window {
 
         Label dialogText = new Label(text);
 
-        HorizontalLayout mainLayout = new HorizontalLayout();
+        mainLayout = new HorizontalLayout();
         for (Option option : options) {
-            Button button = new Button(option.getCaption());
-            button.addClickListener(event -> {
-                if (option.getAction() != null) {
-                    new Thread(option.getAction()).start();
-                }
-                close();
-            });
-            mainLayout.addComponent(button);
+            addOption(option);
         }
 
         VerticalLayout content = new VerticalLayout(dialogText, mainLayout);
@@ -32,7 +28,22 @@ public class MultichoiceDialog extends Window {
         setContent(content);
     }
 
-    static class Option {
+    private void addOption(Option option) {
+        Button button = new Button(option.getCaption());
+        button.addClickListener(event -> {
+            if (option.getAction() != null) {
+                new Thread(option.getAction()).start();
+            }
+            close();
+        });
+        mainLayout.addComponent(button);
+    }
+
+    public void addOption(String caption, Runnable action) {
+        addOption(new Option(caption, action));
+    }
+
+    private static class Option {
         private final String caption;
         private final Runnable action;
 
@@ -48,10 +59,6 @@ public class MultichoiceDialog extends Window {
         public Runnable getAction() {
             return action;
         }
-    }
-
-    public static Option createOption(String caption, Runnable action) {
-        return new Option(caption, action);
     }
 
 }

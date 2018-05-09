@@ -1,4 +1,4 @@
-package com.iwaneez.stuffer.ui.component.settings;
+package com.iwaneez.stuffer.ui.view.settings;
 
 import com.iwaneez.stuffer.ui.component.Localizable;
 import com.iwaneez.stuffer.util.Localization;

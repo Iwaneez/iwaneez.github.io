@@ -1,4 +1,4 @@
-package com.iwaneez.stuffer.ui.view.business;
+package com.iwaneez.stuffer.ui.view.home;
 
 import com.iwaneez.stuffer.util.Localization;
 import com.vaadin.navigator.View;
@@ -9,14 +9,14 @@ import com.vaadin.ui.VerticalLayout;
 
 import javax.annotation.PostConstruct;
 
-@SpringView(name = AdminView.VIEW_NAME)
-public class AdminView extends VerticalLayout implements View {
+@SpringView(name = HomeView.VIEW_NAME)
+public class HomeView extends VerticalLayout implements View {
 
-    public static final String VIEW_NAME = "AdminView";
+    public static final String VIEW_NAME = "HomeVew";
 
     @PostConstruct
     public void init() {
-        addComponent(new Label(Localization.get("administration.title")));
+        addComponent(new Label(Localization.get("test.title")));
         setSizeFull();
     }
 

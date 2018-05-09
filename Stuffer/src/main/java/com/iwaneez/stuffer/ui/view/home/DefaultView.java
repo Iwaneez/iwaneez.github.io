@@ -1,8 +1,7 @@
-package com.iwaneez.stuffer.ui.view.business;
+package com.iwaneez.stuffer.ui.view.home;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;

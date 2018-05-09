@@ -2,11 +2,13 @@ package com.iwaneez.stuffer.exchange.bo;
 
 import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.binance.BinanceExchange;
+import org.knowm.xchange.bittrex.BittrexExchange;
 import org.knowm.xchange.kraken.KrakenExchange;
 
 public enum SupportedExchange {
 
     BINANCE("Binance", BinanceExchange.class),
+    BITTREX("Bittrex", BittrexExchange.class),
     KRAKEN("Kraken", KrakenExchange.class);
 
     String name;

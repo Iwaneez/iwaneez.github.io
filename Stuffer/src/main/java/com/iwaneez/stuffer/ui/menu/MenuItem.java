@@ -1,10 +1,10 @@
 package com.iwaneez.stuffer.ui.menu;
 
 import com.iwaneez.stuffer.persistence.entity.RoleType;
-import com.iwaneez.stuffer.ui.view.business.AdminView;
-import com.iwaneez.stuffer.ui.view.business.ExchangeView;
-import com.iwaneez.stuffer.ui.view.business.HomeView;
-import com.iwaneez.stuffer.ui.view.business.SettingsView;
+import com.iwaneez.stuffer.ui.view.administration.AdminView;
+import com.iwaneez.stuffer.ui.view.exchange.ExchangeView;
+import com.iwaneez.stuffer.ui.view.home.HomeView;
+import com.iwaneez.stuffer.ui.view.settings.SettingsView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.server.Resource;

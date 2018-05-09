@@ -47,7 +47,7 @@ public class StufferUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-        getPage().setTitle("Vaadin Stuffer App");
+        getPage().setTitle("Stuffer Trading App");
         addStyleName(ValoTheme.UI_WITH_MENU);
         Responsive.makeResponsive(this);
 

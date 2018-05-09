@@ -54,10 +54,10 @@
             <artifactId>vaadin-spring-boot-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-push</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.vaadin</groupId>-->
+            <!--<artifactId>vaadin-push</artifactId>-->
+        <!--</dependency>-->
 
         <!-- Mail support with templates -->
         <dependency>
@@ -98,6 +98,11 @@
         <dependency>
             <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-kraken</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-bittrex</artifactId>
             <version>${xchange.version}</version>
         </dependency>
 

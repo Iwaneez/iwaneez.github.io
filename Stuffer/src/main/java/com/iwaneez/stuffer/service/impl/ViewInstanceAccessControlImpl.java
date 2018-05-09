@@ -2,7 +2,7 @@ package com.iwaneez.stuffer.service.impl;
 
 import com.iwaneez.stuffer.persistence.entity.RoleType;
 import com.iwaneez.stuffer.service.SecurityService;
-import com.iwaneez.stuffer.ui.view.business.AdminView;
+import com.iwaneez.stuffer.ui.view.administration.AdminView;
 import com.vaadin.navigator.View;
 import com.vaadin.spring.access.ViewInstanceAccessControl;
 import com.vaadin.ui.UI;
