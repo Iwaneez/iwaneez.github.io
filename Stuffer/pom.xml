@@ -151,6 +151,12 @@
             <artifactId>guava</artifactId>
             <version>24.1-jre</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>fontawesomelabel</artifactId>
+            <version>1.4.0</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -165,6 +171,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>vaadin-addons</id>
+            <url>http://maven.vaadin.com/vaadin-addons</url>
+        </repository>
+    </repositories>
 
     <build>
         <resources>
