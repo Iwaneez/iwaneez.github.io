@@ -19,7 +19,4 @@ public class BusEvent {
 
     public static class RefreshExchangeDataEvent {
     }
-
-    public static class RefreshUserGridEvent {
-    }
 }

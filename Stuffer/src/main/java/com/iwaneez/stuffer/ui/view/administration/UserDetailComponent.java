@@ -1,36 +1,33 @@
 package com.iwaneez.stuffer.ui.view.administration;
 
-import com.iwaneez.stuffer.event.BusEvent;
 import com.iwaneez.stuffer.persistence.entity.User;
 import com.iwaneez.stuffer.service.UserService;
 import com.iwaneez.stuffer.ui.component.masterdetail.DetailComponent;
 import com.iwaneez.stuffer.util.ApplicationContextUtils;
 import com.iwaneez.stuffer.util.Localization;
-import com.iwaneez.stuffer.util.SessionScopedEventBus;
 import com.vaadin.data.Binder;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.TextField;
 
 public class UserDetailComponent extends DetailComponent<User> {
 
-    private FormLayout formLayout;
-    private Binder<User> binder;
+    private UserService userService;
 
     private TextField username;
     private PasswordField password;
     private PasswordField passwordAgain;
 
-    private UserService userService;
-
 
     public UserDetailComponent() {
-        super();
+        super(User.class);
         userService = ApplicationContextUtils.getApplicationContext().getBean(UserService.class);
     }
 
     @Override
-    protected Component createDetail(Component buttonControls) {
-        formLayout = new FormLayout();
-        binder = new Binder<>(User.class);
+    public Component createDetail(Binder<User> binder) {
+        FormLayout formLayout = new FormLayout();
 
         username = new TextField();
         binder.forField(username).asRequired()
@@ -44,26 +41,20 @@ public class UserDetailComponent extends DetailComponent<User> {
         binder.forField(passwordAgain).asRequired()
                 .withValidator(value -> value.equals(password.getValue()), Localization.get("messages.administration.passwords_must_match"))
                 .bind(User::getPassword, User::setPassword);
+
         formLayout.addComponents(username, password, passwordAgain);
-        formLayout.setSizeFull();
 
-        VerticalLayout verticalLayout = new VerticalLayout(formLayout, buttonControls);
-
-        return verticalLayout;
+        return formLayout;
     }
 
     @Override
-    protected void loadItem(User item) {
-        binder.readBean(item);
+    protected void getFocus() {
+        username.focus();
     }
 
     @Override
-    protected void save() {
-        User user = new User();
-        if (binder.writeBeanIfValid(user)) {
-            userService.createUser(user);
-            SessionScopedEventBus.post(new BusEvent.RefreshUserGridEvent());
-        }
+    public User save(User user) {
+        return userService.createUser(user);
     }
 
     @Override

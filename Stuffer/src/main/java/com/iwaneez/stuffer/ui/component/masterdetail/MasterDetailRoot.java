@@ -1,16 +1,14 @@
 package com.iwaneez.stuffer.ui.component.masterdetail;
 
-import com.iwaneez.stuffer.event.BusEvent;
 import com.iwaneez.stuffer.ui.component.Localizable;
 import com.iwaneez.stuffer.util.Localization;
-import com.iwaneez.stuffer.util.SessionScopedEventBus;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.Optional;
 
-public abstract class MasterDetail<T, M extends MasterComponent<T>, D extends DetailComponent<T>> extends CustomComponent implements Localizable {
+public abstract class MasterDetailRoot<T, M extends MasterComponent<T> & ItemSaveListener<T>, D extends DetailComponent<T>> extends CustomComponent implements Localizable {
 
     private static final int BUTTON_DEFAULT_EM_WIDTH = 8;
 
@@ -20,13 +18,14 @@ public abstract class MasterDetail<T, M extends MasterComponent<T>, D extends De
     private Button createButton, editButton, deleteButton;
 
 
-    public MasterDetail(M masterView, D detailView) {
+    public MasterDetailRoot(M masterView, D detailView) {
         this.masterView = masterView;
         this.detailView = detailView;
+        detailView.addItemSaveListener(masterView);
 
         Component buttonControls = createButtonControls();
 
-        HorizontalSplitPanel splitPanel = new HorizontalSplitPanel(masterView, detailView);
+        HorizontalSplitPanel splitPanel = new HorizontalSplitPanel(this.masterView, this.detailView);
         splitPanel.setStyleName(ValoTheme.SPLITPANEL_LARGE);
         splitPanel.setSizeFull();
 
@@ -57,31 +56,27 @@ public abstract class MasterDetail<T, M extends MasterComponent<T>, D extends De
         return buttonControlLayout;
     }
 
-    protected M getMasterView() {
-        return masterView;
-    }
-
-    protected D getDetailView() {
-        return detailView;
-    }
-
-    protected Optional<T> getSelected() {
+    private Optional<T> getSelected() {
         return masterView.getSelected();
     }
 
     private void createButtonClicked(Button.ClickEvent clickEvent) {
-        detailView.loadItem(null);
+        detailView.setItem(null);
+        detailView.getFocus();
     }
 
     private void editButtonClicked(Button.ClickEvent clickEvent) {
-        getSelected().ifPresent(item -> detailView.loadItem(item));
+        getSelected().ifPresent(item -> {
+            detailView.setItem(item);
+            detailView.getFocus();
+        });
     }
 
     private void deleteButtonClicked(Button.ClickEvent clickEvent) {
         getSelected().ifPresent(item -> {
             deleteItem(item);
-            detailView.loadItem(null);
-            SessionScopedEventBus.post(new BusEvent.RefreshUserGridEvent());
+            masterView.reload();
+            detailView.setItem(null);
         });
     }
 

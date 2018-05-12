@@ -1,21 +1,18 @@
 package com.iwaneez.stuffer.ui.component.masterdetail;
 
-import com.google.common.eventbus.Subscribe;
-import com.iwaneez.stuffer.event.BusEvent;
 import com.iwaneez.stuffer.ui.component.Localizable;
-import com.iwaneez.stuffer.util.SessionScopedEventBus;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Grid;
 
 import java.util.Optional;
 
-public abstract class MasterComponent<T> extends CustomComponent implements Localizable {
+public abstract class MasterComponent<T> extends CustomComponent implements MasterItemCollection<T>, ItemSaveListener<T>, Localizable {
 
     private Grid<T> grid;
 
+
     public MasterComponent() {
-        SessionScopedEventBus.register(this);
-        this.grid = createGrid();
+        grid = createGrid();
 
         setCompositionRoot(grid);
         setSizeFull();
@@ -24,13 +21,18 @@ public abstract class MasterComponent<T> extends CustomComponent implements Loca
 
     protected abstract Grid<T> createGrid();
 
-    protected Optional<T> getSelected() {
+    @Override
+    public Optional<T> getSelected() {
         return grid.getSelectionModel().getFirstSelectedItem();
     }
 
-    @Subscribe
-    protected void reload(BusEvent.RefreshUserGridEvent event) {
+    @Override
+    public void reload() {
         grid.getDataProvider().refreshAll();
     }
 
+    @Override
+    public void onItemSave(T item) {
+        reload();
+    }
 }

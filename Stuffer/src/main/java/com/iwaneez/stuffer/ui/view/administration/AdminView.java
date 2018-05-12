@@ -25,7 +25,7 @@ public class AdminView extends VerticalLayout implements View, Localizable {
         administrationTabSheet.addStyleNames(ValoTheme.TABSHEET_COMPACT_TABBAR, ValoTheme.TABSHEET_FRAMED);
         administrationTabSheet.setSizeFull();
 
-        userAdministration = administrationTabSheet.addTab(new UserMasterDetail());
+        userAdministration = administrationTabSheet.addTab(new UserMasterDetailRoot());
         userAdministration.setIcon(VaadinIcons.GROUP);
 
         addComponent(administrationTabSheet);
