@@ -11,7 +11,7 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 
-public class UserDetailComponent extends DetailComponent<User> {
+public class UserDetail extends DetailComponent<User> {
 
     private UserService userService;
 
@@ -20,7 +20,7 @@ public class UserDetailComponent extends DetailComponent<User> {
     private PasswordField passwordAgain;
 
 
-    public UserDetailComponent() {
+    public UserDetail() {
         super(User.class);
         userService = ApplicationContextUtils.getApplicationContext().getBean(UserService.class);
     }

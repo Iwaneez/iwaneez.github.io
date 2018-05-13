@@ -88,7 +88,7 @@ public abstract class DetailComponent<T> extends CustomComponent implements Item
 
     protected abstract void getFocus();
 
-    protected void addItemSaveListener(ItemSaveListener<T> listener) {
+    public void addItemSaveListener(ItemSaveListener<T> listener) {
         itemSaveListeners.add(listener);
     }
 
@@ -123,8 +123,8 @@ public abstract class DetailComponent<T> extends CustomComponent implements Item
     @Override
     public void localize() {
         setCaption(Localization.get("general.masterdetail.detail.caption"));
-        cancelButton.setCaption(Localization.get("general.masterdetail.button.cancel"));
-        saveButton.setCaption(Localization.get("general.masterdetail.button.save"));
+        cancelButton.setCaption(Localization.get("general.button.cancel"));
+        saveButton.setCaption(Localization.get("general.button.save"));
     }
 
     private T createNewInstance(Class<T> tClass) {

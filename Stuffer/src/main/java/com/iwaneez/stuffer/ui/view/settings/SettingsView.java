@@ -1,6 +1,7 @@
 package com.iwaneez.stuffer.ui.view.settings;
 
 import com.iwaneez.stuffer.ui.component.Localizable;
+import com.iwaneez.stuffer.ui.view.settings.exchange.ExchangeSettings;
 import com.iwaneez.stuffer.util.Localization;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;

@@ -1,10 +1,12 @@
 package com.iwaneez.stuffer.service.impl;
 
+import com.iwaneez.stuffer.persistence.entity.ExchangeProfile;
 import com.iwaneez.stuffer.persistence.entity.Role;
 import com.iwaneez.stuffer.persistence.entity.RoleType;
 import com.iwaneez.stuffer.persistence.entity.User;
 import com.iwaneez.stuffer.persistence.repository.RoleRepository;
 import com.iwaneez.stuffer.persistence.repository.UserRepository;
+import com.iwaneez.stuffer.service.SecurityService;
 import com.iwaneez.stuffer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,12 +21,35 @@ import java.util.Set;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    private SecurityService securityService;
+
     private UserRepository userRepository;
-    @Autowired
     private RoleRepository roleRepository;
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServiceImpl(SecurityService securityService, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        this.securityService = securityService;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public User getCurrentUser() {
+        String currentUsername = securityService.getCurrentUsername();
+        return userRepository.findOneByUsername(currentUsername).get();
+    }
+
+    @Override
+    public Optional<User> findOneByActiveProfile(ExchangeProfile exchangeProfile) {
+        return userRepository.findOneByActiveProfile(exchangeProfile);
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 
     @Override
     public User createUser(User user) {

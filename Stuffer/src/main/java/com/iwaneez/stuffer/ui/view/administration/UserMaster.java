@@ -10,14 +10,14 @@ import com.vaadin.ui.Grid;
 
 import java.util.stream.Collectors;
 
-public class UserMasterComponent extends MasterComponent<User> {
+public class UserMaster extends MasterComponent<User> {
 
     private UserRepository userRepository;
 
     private Grid.Column usernameColumn, roleColumn;
 
 
-    public UserMasterComponent() {
+    public UserMaster() {
         userRepository = ApplicationContextUtils.getApplicationContext().getBean(UserRepository.class);
     }
 

@@ -5,13 +5,13 @@ import com.iwaneez.stuffer.persistence.repository.UserRepository;
 import com.iwaneez.stuffer.ui.component.masterdetail.MasterDetailRoot;
 import com.iwaneez.stuffer.util.ApplicationContextUtils;
 
-public class UserMasterDetailRoot extends MasterDetailRoot<User, UserMasterComponent, UserDetailComponent> {
+public class UserMasterDetailRoot extends MasterDetailRoot<User, UserMaster, UserDetail> {
 
     private UserRepository userRepository;
 
 
     public UserMasterDetailRoot() {
-        super(new UserMasterComponent(), new UserDetailComponent());
+        super(new UserMaster(), new UserDetail());
         userRepository = ApplicationContextUtils.getApplicationContext().getBean(UserRepository.class);
     }
 

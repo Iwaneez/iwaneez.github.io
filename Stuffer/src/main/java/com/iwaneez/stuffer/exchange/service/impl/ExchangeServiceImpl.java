@@ -22,8 +22,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     public ExchangeServiceImpl() {
         exchanges = new HashMap<>();
     }
-
-
+    
     @Override
     public Exchange getExchange(SupportedExchange supportedExchange) {
         Exchange exchange = exchanges.get(supportedExchange);
@@ -33,4 +32,5 @@ public class ExchangeServiceImpl implements ExchangeService {
         }
         return exchange;
     }
+
 }

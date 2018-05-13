@@ -82,10 +82,18 @@ public abstract class MasterDetailRoot<T, M extends MasterComponent<T> & ItemSav
 
     protected abstract void deleteItem(T item);
 
+    public M getMasterView() {
+        return masterView;
+    }
+
+    public D getDetailView() {
+        return detailView;
+    }
+
     @Override
     public void localize() {
-        createButton.setCaption(Localization.get("general.masterdetail.button.create"));
-        editButton.setCaption(Localization.get("general.masterdetail.button.edit"));
-        deleteButton.setCaption(Localization.get("general.masterdetail.button.delete"));
+        createButton.setCaption(Localization.get("general.button.create"));
+        editButton.setCaption(Localization.get("general.button.edit"));
+        deleteButton.setCaption(Localization.get("general.button.delete"));
     }
 }
