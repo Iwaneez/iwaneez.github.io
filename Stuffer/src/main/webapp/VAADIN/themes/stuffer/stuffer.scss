@@ -41,8 +41,23 @@ $login-background-image: "img/login-bg.jpg" !default;
     }
   }
 
-  .md-root .v-splitpanel-horizontal {
+  div + .v-slot-md-root {
+    margin-top: 2em;
+  }
+
+  .md-root .md-splitpanel {
     margin-top: 12px;
+  }
+
+  .b-link {
+    padding: 0px;
+    &:focus {
+     &:after {
+       border-color: inherit;
+       -webkit-box-shadow: inherit;
+       box-shadow: inherit;
+     }
+    }
   }
 
   .v-button-logout {

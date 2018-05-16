@@ -10,7 +10,8 @@ import java.util.Optional;
 
 public abstract class MasterDetailRoot<T, M extends MasterComponent<T> & ItemSaveListener<T>, D extends DetailComponent<T>> extends CustomComponent implements Localizable {
 
-    private static final String STYLE_NAME = "md-root";
+    private static final String STYLE_NAME_MD_ROOT = "md-root";
+    private static final String STYLE_NAME_MD_SPLITPANEL = "md-splitpanel";
     private static final int BUTTON_DEFAULT_EM_WIDTH = 8;
 
     private M masterView;
@@ -24,11 +25,11 @@ public abstract class MasterDetailRoot<T, M extends MasterComponent<T> & ItemSav
         this.detailView = detailView;
         detailView.addItemSaveListener(masterView);
 
-        setStyleName(STYLE_NAME);
+        setStyleName(STYLE_NAME_MD_ROOT);
         Component buttonControls = createButtonControls();
 
         HorizontalSplitPanel splitPanel = new HorizontalSplitPanel(this.masterView, this.detailView);
-        splitPanel.setStyleName(ValoTheme.SPLITPANEL_LARGE);
+        splitPanel.addStyleNames(ValoTheme.SPLITPANEL_LARGE, STYLE_NAME_MD_SPLITPANEL);
         splitPanel.setSizeFull();
 
         CssLayout content = new CssLayout(buttonControls, splitPanel);

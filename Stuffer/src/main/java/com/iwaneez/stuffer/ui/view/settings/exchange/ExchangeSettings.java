@@ -7,6 +7,7 @@ import com.iwaneez.stuffer.ui.component.Localizable;
 import com.iwaneez.stuffer.util.ApplicationContextUtils;
 import com.iwaneez.stuffer.util.Localization;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 
 public class ExchangeSettings extends VerticalLayout implements Localizable {
 
@@ -15,8 +16,9 @@ public class ExchangeSettings extends VerticalLayout implements Localizable {
 
     private Panel exchangeProfilesPanel;
     private ComboBox<ExchangeProfile> activeProfileComboBox;
-    private ExchangeProfileMasterDetailRoot masterDetailRoot;
     private Button saveButton;
+    private ExchangeProfileMasterDetailRoot masterDetailRoot;
+    private Button toggleUserManagement;
 
     public ExchangeSettings() {
         userService = ApplicationContextUtils.getApplicationContext().getBean(UserService.class);
@@ -28,8 +30,14 @@ public class ExchangeSettings extends VerticalLayout implements Localizable {
         Component activeProfileSelector = createActiveProfileSelector();
         content.addComponent(activeProfileSelector);
 
+        toggleUserManagement = new Button();
+        toggleUserManagement.addClickListener(event -> masterDetailRoot.setVisible(!masterDetailRoot.isVisible()));
+        toggleUserManagement.addStyleNames(ValoTheme.BUTTON_LINK, "b-link");
+        content.addComponent(toggleUserManagement);
+
         masterDetailRoot = new ExchangeProfileMasterDetailRoot();
         masterDetailRoot.getDetailView().addItemSaveListener(item -> reloadExchangeProfileComboBox());
+        masterDetailRoot.setVisible(false);
         content.addComponent(masterDetailRoot);
 
         exchangeProfilesPanel.setContent(content);
@@ -50,11 +58,17 @@ public class ExchangeSettings extends VerticalLayout implements Localizable {
         profileSelector.setComponentAlignment(activeProfileComboBox, Alignment.BOTTOM_LEFT);
 
         saveButton = new Button();
-        saveButton.addClickListener(event -> exchangeProfileService.setCurrentUserActiveProfile(activeProfileComboBox.getValue()));
+        saveButton.addClickListener(this::saveProfileClicked);
+        saveButton.setStyleName(ValoTheme.BUTTON_PRIMARY);
         profileSelector.addComponent(saveButton);
         profileSelector.setComponentAlignment(saveButton, Alignment.BOTTOM_LEFT);
 
         return profileSelector;
+    }
+
+    private void saveProfileClicked(Button.ClickEvent event) {
+        exchangeProfileService.setCurrentUserActiveProfile(activeProfileComboBox.getValue());
+        Notification.show(Localization.get("messages.general.saved"), Notification.Type.HUMANIZED_MESSAGE);
     }
 
     private void reloadExchangeProfileComboBox() {
@@ -66,5 +80,6 @@ public class ExchangeSettings extends VerticalLayout implements Localizable {
         exchangeProfilesPanel.setCaption(Localization.get("settings.exchange.exchangeProfile.caption"));
         activeProfileComboBox.setCaption(Localization.get("settings.exchange.exchangeProfile.activeProfile"));
         saveButton.setCaption(Localization.get("general.button.save"));
+        toggleUserManagement.setCaption(Localization.get("settings.exchange.exchangeProfile.exchangeProfileManagement"));
     }
 }
