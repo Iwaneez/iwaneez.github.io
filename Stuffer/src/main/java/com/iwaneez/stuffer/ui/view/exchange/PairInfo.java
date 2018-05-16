@@ -92,6 +92,7 @@ public class PairInfo extends VerticalLayout implements Localizable {
 
     private Component createDataPanel() {
         VerticalLayout dataPanel = new VerticalLayout();
+        dataPanel.setMargin(false);
         dataPanel.setSizeFull();
 
         timestampLabel = new Label(getDateTimeString());
@@ -122,7 +123,6 @@ public class PairInfo extends VerticalLayout implements Localizable {
         pLowLabel.setCaption("Low:");
 
         ohlcForm.addComponents(pOpenLabel, pHighLabel, pLowLabel);
-//        ohlcForm.setSizeFull();
 
         return ohlcForm;
     }
@@ -151,7 +151,6 @@ public class PairInfo extends VerticalLayout implements Localizable {
         volumeLabel.setCaption("Volume:");
 
         askBidForm.addComponents(lastLabel, askLabel, bidLabel, volumeLabel);
-//        askBidForm.setSizeFull();
 
         return askBidForm;
     }

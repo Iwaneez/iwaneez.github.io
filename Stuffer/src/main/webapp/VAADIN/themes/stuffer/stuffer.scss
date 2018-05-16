@@ -41,6 +41,10 @@ $login-background-image: "img/login-bg.jpg" !default;
     }
   }
 
+  .md-root .v-splitpanel-horizontal {
+    margin-top: 12px;
+  }
+
   .v-button-logout {
     position: absolute;
     left: 0px;

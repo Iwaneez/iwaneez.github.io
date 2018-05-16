@@ -8,10 +8,13 @@ import java.util.Optional;
 
 public abstract class MasterComponent<T> extends CustomComponent implements MasterItemCollection<T>, ItemSaveListener<T>, Localizable {
 
+    public static final String STYLE_NAME = "md-master";
+
     private Grid<T> grid;
 
 
     public MasterComponent() {
+        setStyleName(STYLE_NAME);
         grid = createGrid();
 
         setCompositionRoot(grid);

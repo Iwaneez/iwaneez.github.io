@@ -17,6 +17,7 @@ public abstract class DetailComponent<T> extends CustomComponent implements Item
 
     private final static Logger LOGGER = LoggerFactory.getLogger(DetailComponent.class);
 
+    private static final String STYLE_NAME = "md-detail";
     private static final int BUTTON_DEFAULT_EM_WIDTH = 8;
 
     private Class<T> tClass;
@@ -33,6 +34,7 @@ public abstract class DetailComponent<T> extends CustomComponent implements Item
         this.binder = new Binder<>(tClass);
         this.itemSaveListeners = new ArrayList<>();
 
+        setStyleName(STYLE_NAME);
         VerticalLayout content = new VerticalLayout();
 
         Component itemDetail = createDetail(binder);

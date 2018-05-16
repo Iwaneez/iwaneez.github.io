@@ -23,16 +23,16 @@ public class ExchangeSettings extends VerticalLayout implements Localizable {
         exchangeProfileService = ApplicationContextUtils.getApplicationContext().getBean(ExchangeProfileService.class);
 
         exchangeProfilesPanel = new Panel();
-        VerticalLayout panelContent = new VerticalLayout();
+        VerticalLayout content = new VerticalLayout();
 
         Component activeProfileSelector = createActiveProfileSelector();
-        panelContent.addComponent(activeProfileSelector);
+        content.addComponent(activeProfileSelector);
 
         masterDetailRoot = new ExchangeProfileMasterDetailRoot();
         masterDetailRoot.getDetailView().addItemSaveListener(item -> reloadExchangeProfileComboBox());
-        panelContent.addComponent(masterDetailRoot);
+        content.addComponent(masterDetailRoot);
 
-        exchangeProfilesPanel.setContent(panelContent);
+        exchangeProfilesPanel.setContent(content);
         addComponents(exchangeProfilesPanel);
 
         localize();

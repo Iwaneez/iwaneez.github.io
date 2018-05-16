@@ -16,7 +16,7 @@ public class AdminView extends VerticalLayout implements View, Localizable {
 
     public static final String VIEW_NAME = "AdminView";
 
-    private TabSheet.Tab userAdministration;
+    private TabSheet.Tab usersAdministration;
 
 
     @PostConstruct
@@ -25,8 +25,8 @@ public class AdminView extends VerticalLayout implements View, Localizable {
         administrationTabSheet.addStyleNames(ValoTheme.TABSHEET_COMPACT_TABBAR, ValoTheme.TABSHEET_FRAMED);
         administrationTabSheet.setSizeFull();
 
-        userAdministration = administrationTabSheet.addTab(new UserMasterDetailRoot());
-        userAdministration.setIcon(VaadinIcons.GROUP);
+        usersAdministration = administrationTabSheet.addTab(new UsersAdministration());
+        usersAdministration.setIcon(VaadinIcons.GROUP);
 
         addComponent(administrationTabSheet);
 
@@ -36,6 +36,6 @@ public class AdminView extends VerticalLayout implements View, Localizable {
 
     @Override
     public void localize() {
-        userAdministration.setCaption(Localization.get("administration.users.caption"));
+        usersAdministration.setCaption(Localization.get("administration.users.caption"));
     }
 }
