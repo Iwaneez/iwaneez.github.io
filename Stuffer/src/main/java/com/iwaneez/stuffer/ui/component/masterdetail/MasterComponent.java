@@ -3,6 +3,7 @@ package com.iwaneez.stuffer.ui.component.masterdetail;
 import com.iwaneez.stuffer.ui.component.Localizable;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.VerticalLayout;
 
 import java.util.Optional;
 
@@ -15,9 +16,16 @@ public abstract class MasterComponent<T> extends CustomComponent implements Mast
 
     public MasterComponent() {
         setStyleName(STYLE_NAME);
-        grid = createGrid();
 
-        setCompositionRoot(grid);
+        VerticalLayout content = new VerticalLayout();
+        content.setMargin(false);
+        content.setSizeFull();
+
+        grid = createGrid();
+        content.addComponent(grid);
+        content.setExpandRatio(grid, 1);
+
+        setCompositionRoot(content);
         setSizeFull();
         localize();
     }

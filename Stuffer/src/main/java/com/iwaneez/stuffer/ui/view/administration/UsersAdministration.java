@@ -10,5 +10,6 @@ public class UsersAdministration extends VerticalLayout {
         usersMasterDetail = new UserMasterDetailRoot();
 
         addComponent(usersMasterDetail);
+        setSizeFull();
     }
 }

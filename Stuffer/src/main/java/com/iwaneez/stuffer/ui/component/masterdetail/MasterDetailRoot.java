@@ -29,6 +29,7 @@ public abstract class MasterDetailRoot<T, M extends MasterComponent<T> & ItemSav
         Component buttonControls = createButtonControls();
 
         HorizontalSplitPanel splitPanel = new HorizontalSplitPanel(this.masterView, this.detailView);
+        splitPanel.setSizeFull();
         splitPanel.addStyleNames(ValoTheme.SPLITPANEL_LARGE, STYLE_NAME_MD_SPLITPANEL);
         splitPanel.setSizeFull();
 

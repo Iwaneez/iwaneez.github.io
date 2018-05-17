@@ -2,7 +2,11 @@ package com.iwaneez.stuffer.ui.view.settings;
 
 import com.iwaneez.stuffer.ui.component.Localizable;
 import com.iwaneez.stuffer.util.Localization;
-import com.vaadin.ui.*;
+import com.vaadin.data.HasValue;
+import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 import java.util.Locale;
 
@@ -13,25 +17,28 @@ public class GeneralSettings extends VerticalLayout implements Localizable {
 
     public GeneralSettings() {
         languageSettings = new Panel();
-
-        langComboBox = new ComboBox<>();
-        langComboBox.setItems(Localization.supportedLocales);
-        langComboBox.setItemCaptionGenerator(Locale::getLanguage);
-        langComboBox.setSelectedItem(UI.getCurrent().getLocale());
-        langComboBox.setEmptySelectionAllowed(false);
-        langComboBox.setTextInputAllowed(false);
-        langComboBox.addValueChangeListener(event -> UI.getCurrent().setLocale(event.getValue()));
-
-        FormLayout langForm = new FormLayout(langComboBox);
-        langForm.setMargin(true);
-        langForm.setSpacing(false);
-
-        languageSettings.setContent(langForm);
+        languageSettings.setContent(new VerticalLayout(langComboBox = createLanguageCombobox()));
 
         addComponents(languageSettings);
 
         localize();
         setSizeFull();
+    }
+
+    private ComboBox<Locale> createLanguageCombobox() {
+        ComboBox<Locale> comboBox = new ComboBox<>();
+        comboBox.setItems(Localization.supportedLocales);
+        comboBox.setItemCaptionGenerator(Locale::getLanguage);
+        comboBox.setSelectedItem(UI.getCurrent().getLocale());
+        comboBox.setEmptySelectionAllowed(false);
+        comboBox.setTextInputAllowed(false);
+        comboBox.addValueChangeListener(this::languageChanged);
+
+        return comboBox;
+    }
+
+    private void languageChanged(HasValue.ValueChangeEvent<Locale> event) {
+        UI.getCurrent().setLocale(event.getValue());
     }
 
     @Override

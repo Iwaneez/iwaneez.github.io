@@ -41,6 +41,10 @@ $login-background-image: "img/login-bg.jpg" !default;
     }
   }
 
+  .no-padding {
+    padding: 0px;
+  }
+
   div + .v-slot-md-root {
     margin-top: 2em;
   }
@@ -50,7 +54,6 @@ $login-background-image: "img/login-bg.jpg" !default;
   }
 
   .b-link {
-    padding: 0px;
     &:focus {
      &:after {
        border-color: inherit;

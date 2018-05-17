@@ -32,7 +32,7 @@ public class ExchangeSettings extends VerticalLayout implements Localizable {
 
         toggleUserManagement = new Button();
         toggleUserManagement.addClickListener(event -> masterDetailRoot.setVisible(!masterDetailRoot.isVisible()));
-        toggleUserManagement.addStyleNames(ValoTheme.BUTTON_LINK, "b-link");
+        toggleUserManagement.addStyleNames(ValoTheme.BUTTON_LINK, "b-link", "no-padding");
         content.addComponent(toggleUserManagement);
 
         masterDetailRoot = new ExchangeProfileMasterDetailRoot();
