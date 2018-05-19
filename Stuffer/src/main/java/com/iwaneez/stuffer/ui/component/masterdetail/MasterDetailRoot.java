@@ -20,9 +20,9 @@ public abstract class MasterDetailRoot<T, M extends MasterComponent<T> & ItemSav
     private Button createButton, editButton, deleteButton;
 
 
-    public MasterDetailRoot(M masterView, D detailView) {
-        this.masterView = masterView;
-        this.detailView = detailView;
+    public MasterDetailRoot(M master, D detail) {
+        masterView = master;
+        detailView = detail;
         detailView.addItemSaveListener(masterView);
 
         setStyleName(STYLE_NAME_MD_ROOT);

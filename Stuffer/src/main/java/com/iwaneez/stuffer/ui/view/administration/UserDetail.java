@@ -60,13 +60,23 @@ public class UserDetail extends DetailComponent<User> {
     }
 
     @Override
+    protected void loadItem(User item) {
+        super.loadItem(item);
+        password.setVisible(item.getId() == null);
+        passwordAgain.setVisible(item.getId() == null);
+    }
+
+    @Override
     protected void getFocus() {
         username.focus();
     }
 
     @Override
     public User save(User user) {
-        return userService.createUser(user);
+        if (user.getId() == null) {
+            return userService.createUser(user);
+        }
+        return userService.save(user);
     }
 
     @Override

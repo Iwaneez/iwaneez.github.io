@@ -105,7 +105,7 @@ public abstract class DetailComponent<T> extends CustomComponent implements Item
         loadItem(item);
     }
 
-    private void loadItem(T item) {
+    protected void loadItem(T item) {
         binder.readBean(item);
     }
 

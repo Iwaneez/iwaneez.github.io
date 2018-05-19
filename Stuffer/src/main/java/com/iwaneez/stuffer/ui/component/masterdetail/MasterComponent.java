@@ -13,7 +13,6 @@ public abstract class MasterComponent<T> extends CustomComponent implements Mast
 
     private Grid<T> grid;
 
-
     public MasterComponent() {
         setStyleName(STYLE_NAME);
 
