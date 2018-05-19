@@ -40,7 +40,7 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public String getCurrentUsername() {
+    public String getCurrentUserUsername() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) auth.getPrincipal();

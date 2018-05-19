@@ -1,5 +1,6 @@
 package com.iwaneez.stuffer.util;
 
+import com.iwaneez.stuffer.service.UserService;
 import com.iwaneez.stuffer.ui.component.Localizable;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Component;
@@ -19,7 +20,7 @@ public class Localization {
     public static final List<Locale> supportedLocales = Arrays.asList(Locale.US, new Locale("sk", "SK"));
 
     public static Locale getLocale() {
-        Locale locale = getCookieLocale();
+        Locale locale = getUserLocale();
         if (locale == null) {
             locale = getBrowserLocale();
         }
@@ -27,6 +28,15 @@ public class Localization {
             locale = getDefaultLocale();
         }
         return locale;
+    }
+
+    private static Locale getUserLocale() {
+        try {
+            UserService userService = ApplicationContextUtils.getApplicationContext().getBean(UserService.class);
+            return Locale.forLanguageTag(userService.getCurrentUser().getLanguage());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private static Locale getCookieLocale() {

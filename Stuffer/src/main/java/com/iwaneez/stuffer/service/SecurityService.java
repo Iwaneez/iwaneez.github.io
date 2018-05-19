@@ -8,7 +8,7 @@ public interface SecurityService {
 
     void login(String username, String password);
 
-    String getCurrentUsername();
+    String getCurrentUserUsername();
 
     boolean hasRole(RoleType type);
 

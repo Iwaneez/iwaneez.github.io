@@ -11,6 +11,7 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private String language;
     private Set<Role> roles = new HashSet<>();
     private ExchangeProfile activeProfile;
 
@@ -40,6 +41,15 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name = "language")
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     @ManyToMany(fetch = FetchType.EAGER)

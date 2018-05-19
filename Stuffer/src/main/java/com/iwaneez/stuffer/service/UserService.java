@@ -9,10 +9,12 @@ public interface UserService {
 
     User getCurrentUser();
 
-    Optional<User> findOneByActiveProfile(ExchangeProfile exchangeProfile);
+    User createUser(User user);
 
     User save(User user);
 
-    User createUser(User user);
+    User changeLanguage(User user, String languageTag);
+
+    Optional<User> findOneByActiveProfile(ExchangeProfile exchangeProfile);
 
 }

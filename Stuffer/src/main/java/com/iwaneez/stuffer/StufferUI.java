@@ -1,7 +1,9 @@
 package com.iwaneez.stuffer;
 
 import com.iwaneez.stuffer.event.BusEvent.ViewChangedEvent;
+import com.iwaneez.stuffer.persistence.entity.User;
 import com.iwaneez.stuffer.service.SecurityService;
+import com.iwaneez.stuffer.service.UserService;
 import com.iwaneez.stuffer.ui.ContentContainer;
 import com.iwaneez.stuffer.ui.menu.MenuItem;
 import com.iwaneez.stuffer.ui.view.AccessDeniedView;
@@ -29,6 +31,7 @@ import java.util.Locale;
 public class StufferUI extends UI {
 
     private final SecurityService securityService;
+    private final UserService userService;
 
     private final SessionScopedEventBus sessionScopedEventBus;
 
@@ -36,8 +39,9 @@ public class StufferUI extends UI {
 
 
     @Autowired
-    public StufferUI(SecurityService securityService, SpringNavigator navigator, SpringViewProvider viewProvider, ContentContainer contentContainer) {
+    public StufferUI(SecurityService securityService, UserService userService, SpringNavigator navigator, SpringViewProvider viewProvider, ContentContainer contentContainer) {
         this.securityService = securityService;
+        this.userService = userService;
         this.sessionScopedEventBus = new SessionScopedEventBus();
         this.contentContainer = contentContainer;
 
@@ -50,8 +54,6 @@ public class StufferUI extends UI {
         getPage().setTitle("Stuffer Trading App");
         addStyleName(ValoTheme.UI_WITH_MENU);
         Responsive.makeResponsive(this);
-
-        setLocale(Localization.getLocale());
 
         if (!securityService.isLoggedIn()) {
             showLoginView();
@@ -85,13 +87,21 @@ public class StufferUI extends UI {
     }
 
     private void showLoginView() {
-        setContent(new LoginView(securityService, this::showMainView));
+        setContent(new LoginView(securityService, this::afterLogin));
+    }
+
+    private void afterLogin() {
+        setLocale(Localization.getLocale());
+        showMainView();
     }
 
     @Override
     public void setLocale(Locale locale) {
         super.setLocale(locale);
-        Localization.setLocaleCookie(locale);
+        User currentUser = userService.getCurrentUser();
+        if (!locale.toLanguageTag().equals(currentUser.getLanguage())) {
+            userService.changeLanguage(currentUser, locale.toLanguageTag());
+        }
         Localization.localize(getContent());
     }
 

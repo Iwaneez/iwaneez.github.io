@@ -59,7 +59,6 @@ public class ExchangeProfileDetail extends DetailComponent<ExchangeProfile> {
 
     @Override
     public ExchangeProfile save(ExchangeProfile item) {
-        // TODO: replace this hack wit correctly iniialized beans with all needed values
         if (item.getOwner() == null) {
             item.setOwner(userService.getCurrentUser());
         }

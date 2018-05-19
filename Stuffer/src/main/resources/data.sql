@@ -4,8 +4,8 @@ delete from users;
 delete from role;
 
 -- inserting data
-insert into users (id, username, password, active_profile)
-values (9999, 'admin', '$2a$10$Yd.FY0Oz6WOlXP.j2ha7nOEK1PBYMcBw676JcK1U7hdAc4M5TH9LG', null);
+insert into users (id, username, password, language, active_profile)
+values (9999, 'admin', '$2a$10$Yd.FY0Oz6WOlXP.j2ha7nOEK1PBYMcBw676JcK1U7hdAc4M5TH9LG', null, null);
 
 insert into role (id, type)
 values (1, 'ADMIN');

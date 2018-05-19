@@ -30,18 +30,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentUser() {
-        String currentUsername = securityService.getCurrentUsername();
-        return userRepository.findOneByUsername(currentUsername).get();
-    }
-
-    @Override
-    public Optional<User> findOneByActiveProfile(ExchangeProfile exchangeProfile) {
-        return userRepository.findOneByActiveProfile(exchangeProfile);
-    }
-
-    @Override
-    public User save(User user) {
-        return userRepository.save(user);
+        String currentUserUsername = securityService.getCurrentUserUsername();
+        return userRepository.findOneByUsername(currentUserUsername).get();
     }
 
     @Override
@@ -51,4 +41,20 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User changeLanguage(User user, String languageTag) {
+        user.setLanguage(languageTag);
+
+        return save(user);
+    }
+
+    @Override
+    public Optional<User> findOneByActiveProfile(ExchangeProfile exchangeProfile) {
+        return userRepository.findOneByActiveProfile(exchangeProfile);
+    }
 }
