@@ -14,18 +14,14 @@ public abstract class MasterComponent<T> extends CustomComponent implements Mast
     private Grid<T> grid;
 
     public MasterComponent() {
-        setStyleName(STYLE_NAME);
-
-        VerticalLayout content = new VerticalLayout();
-        content.setMargin(false);
-        content.setSizeFull();
+        addStyleNames(STYLE_NAME);
 
         grid = createGrid();
-        content.addComponent(grid);
-        content.setExpandRatio(grid, 1);
+
+        VerticalLayout content = new VerticalLayout(grid);
+        content.setMargin(false);
 
         setCompositionRoot(content);
-        setSizeFull();
         localize();
     }
 

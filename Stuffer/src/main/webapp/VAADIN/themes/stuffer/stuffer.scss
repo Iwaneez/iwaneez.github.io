@@ -49,8 +49,17 @@ $login-background-image: "img/login-bg.jpg" !default;
     margin-top: 2em;
   }
 
-  .md-root .md-splitpanel {
-    margin-top: 12px;
+  .md-root {
+    .md-splitpanel {
+      margin-top: 12px;
+    }
+
+    .md-detail {
+      .v-layout {
+        padding-top: 0px;
+        padding-bottom: 0px;
+      }
+    }
   }
 
   .b-link {

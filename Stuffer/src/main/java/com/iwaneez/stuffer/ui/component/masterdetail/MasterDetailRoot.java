@@ -25,19 +25,17 @@ public abstract class MasterDetailRoot<T, M extends MasterComponent<T> & ItemSav
         detailView = detail;
         detailView.addItemSaveListener(masterView);
 
-        setStyleName(STYLE_NAME_MD_ROOT);
+        addStyleName(STYLE_NAME_MD_ROOT);
         Component buttonControls = createButtonControls();
 
-        HorizontalSplitPanel splitPanel = new HorizontalSplitPanel(this.masterView, this.detailView);
-        splitPanel.setSizeFull();
+        HorizontalLayout splitPanel = new HorizontalLayout(masterView, detailView);
         splitPanel.addStyleNames(ValoTheme.SPLITPANEL_LARGE, STYLE_NAME_MD_SPLITPANEL);
         splitPanel.setSizeFull();
 
-        CssLayout content = new CssLayout(buttonControls, splitPanel);
-        content.setSizeFull();
+        VerticalLayout content = new VerticalLayout(buttonControls, splitPanel);
+        content.setMargin(false);
 
         setCompositionRoot(content);
-        setSizeFull();
         localize();
     }
 
