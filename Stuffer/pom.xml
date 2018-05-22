@@ -152,6 +152,14 @@
             <version>24.1-jre</version>
         </dependency>
 
+        <!-- Vaadin carts -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-charts</artifactId>
+            <version>4.0.4</version>
+        </dependency>
+
+        <!-- Fontawesome -->
         <dependency>
             <groupId>org.vaadin.addons</groupId>
             <artifactId>fontawesomelabel</artifactId>
