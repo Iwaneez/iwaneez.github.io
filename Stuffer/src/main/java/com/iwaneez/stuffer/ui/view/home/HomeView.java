@@ -1,6 +1,6 @@
 package com.iwaneez.stuffer.ui.view.home;
 
-`import com.iwaneez.stuffer.exchange.service.ExchangeService;
+import com.iwaneez.stuffer.exchange.service.ExchangeService;
 import com.iwaneez.stuffer.persistence.entity.ExchangeProfile;
 import com.iwaneez.stuffer.service.UserService;
 import com.iwaneez.stuffer.ui.component.Localizable;
