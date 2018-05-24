@@ -4,15 +4,13 @@ import com.iwaneez.stuffer.exchange.service.ExchangeService;
 import com.iwaneez.stuffer.persistence.entity.ExchangeProfile;
 import com.iwaneez.stuffer.service.UserService;
 import com.iwaneez.stuffer.ui.component.Localizable;
+import com.iwaneez.stuffer.util.Localization;
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.*;
 import com.vaadin.navigator.View;
-import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.*;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -26,9 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringView(name = HomeView.VIEW_NAME)
 public class HomeView extends VerticalLayout implements View, Localizable {
@@ -37,27 +34,31 @@ public class HomeView extends VerticalLayout implements View, Localizable {
 
     public static final String VIEW_NAME = "HomeVew";
 
-    private UserService userService;
     private ExchangeService exchangeService;
     private Exchange exchangeInstance;
 
-    private Wallet wallet;
+    private WalletBalance balance;
+    private Chart balanceChart;
+    private Component balanceTextInfo;
+
+    private Configuration chartConfig;
 
     @Autowired
     public HomeView(UserService userService, ExchangeService exchangeService) {
-        this.userService = userService;
         this.exchangeService = exchangeService;
-        exchangeInstance = getExchangeInstance(userService.getCurrentUser().getActiveProfile());
-        wallet = loadWallet();
+        this.exchangeInstance = getExchangeInstance(userService.getCurrentUser().getActiveProfile());
+        this.balance = loadBalance();
     }
 
     @PostConstruct
     public void init() {
-        if (exchangeInstance == null || wallet == null) {
-            addComponent(new Label(("No profile set! Please set exchange profile in exchange settings.")));
+        if (balance == null) {
+            addComponent(new Label(("No account selected! Please select an account in exchange settings.")));
+        } else if (balance.getBalanceItems().isEmpty()) {
+            addComponent(new Label(("You have no funds.")));
         } else {
-            Component balanceChart = createBalanceChart(wallet);
-            Component balanceTextInfo = createBalanceTextInfo(wallet);
+            balanceChart = createBalanceChart(balance);
+            balanceTextInfo = createBalanceTextInfo(balance);
 
             HorizontalLayout content = new HorizontalLayout(balanceChart, balanceTextInfo);
             content.setSizeFull();
@@ -80,73 +81,130 @@ public class HomeView extends VerticalLayout implements View, Localizable {
         return ExchangeFactory.INSTANCE.createExchange(spec);
     }
 
-    private Wallet loadWallet() {
+    private WalletBalance loadBalance() {
         if (exchangeInstance == null) {
             return null;
         }
+        WalletBalance walletBalance = new WalletBalance();
         try {
-            return exchangeInstance.getAccountService().getAccountInfo().getWallet();
+            // TODO: rename profile to account
+            Wallet accountWallet = exchangeInstance.getAccountService().getAccountInfo().getWallet();
+            accountWallet.getBalances().entrySet().stream()
+                    .filter(currencyBalanceEntry -> currencyBalanceEntry.getValue().getAvailable().intValue() > 0)
+                    .forEach(currencyBalanceEntry -> {
+                        try {
+                            BigDecimal btcPrice = exchangeInstance.getMarketDataService()
+                                    .getTicker(new CurrencyPair(currencyBalanceEntry.getKey(), Currency.BTC))
+                                    .getLast();
+                            walletBalance.addBalanceItem(new WalletBalanceItem(
+                                    currencyBalanceEntry.getKey(),
+                                    currencyBalanceEntry.getValue().getAvailable(),
+                                    btcPrice));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
         } catch (IOException e) {
             LOGGER.error("An error occurred while reading wallet info", e);
-            return null;
+        } finally {
+            return walletBalance;
         }
     }
 
-    private Component createBalanceChart(Wallet wallet) {
+    private Chart createBalanceChart(WalletBalance walletBalance) {
         Chart balancePieChart = new Chart(ChartType.PIE);
-        Configuration conf = balancePieChart.getConfiguration();
+        chartConfig = balancePieChart.getConfiguration();
 
         PlotOptionsPie plotOptions = new PlotOptionsPie();
-        plotOptions.setCursor(Cursor.POINTER);
 
         DataLabels dataLabels = new DataLabels();
         dataLabels.setEnabled(true);
         dataLabels.setFormatter("'<b>'+ this.point.name +'</b>: '+ this.percentage +' %'");
         plotOptions.setDataLabels(dataLabels);
+        plotOptions.setCursor(Cursor.POINTER);
 
-        conf.setPlotOptions(plotOptions);
+        chartConfig.setPlotOptions(plotOptions);
 
-        final BigDecimal[] btcSum = {new BigDecimal(0.0)};
-        Map<Currency, BigDecimal> btcValuation = new HashMap<>();
-        wallet.getBalances().entrySet().stream()
-                .filter(currencyBalanceEntry -> currencyBalanceEntry.getValue().getAvailable().intValue() > 0)
-                .forEach(currencyBalanceEntry -> {
-                    try {
-                        BigDecimal btcPrice = exchangeInstance.getMarketDataService()
-                                .getTicker(new CurrencyPair(currencyBalanceEntry.getKey(), Currency.BTC))
-                                .getLast();
-                        btcSum[0] = btcSum[0].add(btcPrice);
-                        btcValuation.put(currencyBalanceEntry.getKey(), btcPrice);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+        DataSeries series = new DataSeries();
+        walletBalance.getBalanceItems().stream()
+                .forEach(balanceItem -> series.add(
+                        new DataSeriesItem(balanceItem.getCurrency().getSymbol(), balanceItem.getItemValue().divide(walletBalance.getBitcoinBalance()))));
 
-        final DataSeries series = new DataSeries();
-        btcValuation.entrySet().stream()
-                .forEach(item -> series.add(
-                        new DataSeriesItem(item.getKey().getSymbol(), (item.getValue().divide(btcSum[0])).multiply(new BigDecimal(100)))));
-        conf.setSeries(series);
-
-
-        balancePieChart.drawChart(conf);
+        chartConfig.setSeries(series);
+        balancePieChart.drawChart(chartConfig);
 
         return balancePieChart;
     }
 
-    private Component createBalanceTextInfo(Wallet wallet) {
-        Label balanceInfo = new Label();
-        balanceInfo.setContentMode(ContentMode.HTML);
-        balanceInfo.setValue(wallet.getBalances().entrySet().stream()
-                .filter(currencyBalanceEntry -> currencyBalanceEntry.getValue().getAvailable().intValue() > 0)
-                .map(currencyBalanceEntry -> currencyBalanceEntry.getKey().getSymbol() + ": " + currencyBalanceEntry.getValue().getAvailable())
-                .collect(Collectors.joining("<br/>")));
+    private Component createBalanceTextInfo(WalletBalance walletBalance) {
+        Grid<WalletBalanceItem> grid = new Grid<>();
+        grid.setItems(walletBalance.getBalanceItems());
+        grid.addColumn(balanceItem -> balanceItem.getCurrency().getSymbol());
+        grid.addColumn(WalletBalanceItem::getAmount);
+        grid.addColumn(WalletBalanceItem::getBtcPrice);
+        grid.addColumn(balanceItem -> balanceItem.getItemValue().divide(walletBalance.getBitcoinBalance()).multiply(new BigDecimal("100")));
 
-        return balanceInfo;
+        return grid;
     }
 
     @Override
     public void localize() {
+        if (chartConfig == null) {
+            return;
+        }
+        chartConfig.setTitle(Localization.get("home.portfolio.caption"));
+    }
+
+    private static class WalletBalance {
+        private List<WalletBalanceItem> balanceItems;
+        private BigDecimal bitcoinBalance;
+
+        public WalletBalance() {
+            balanceItems = new ArrayList<>();
+            bitcoinBalance = BigDecimal.ZERO;
+        }
+
+        public List<WalletBalanceItem> getBalanceItems() {
+            return balanceItems;
+        }
+
+        public BigDecimal getBitcoinBalance() {
+            return bitcoinBalance;
+        }
+
+        private void addBalanceItem(WalletBalanceItem balanceItem) {
+            balanceItems.add(balanceItem);
+            bitcoinBalance = bitcoinBalance.add(balanceItem.getItemValue());
+        }
 
     }
+
+    private static class WalletBalanceItem {
+        private Currency currency;
+        private BigDecimal amount;
+        private BigDecimal btcPrice;
+
+        public WalletBalanceItem(Currency currency, BigDecimal amount, BigDecimal btcPrice) {
+            this.currency = currency;
+            this.amount = amount;
+            this.btcPrice = btcPrice;
+        }
+
+        public Currency getCurrency() {
+            return currency;
+        }
+
+        public BigDecimal getAmount() {
+            return amount;
+        }
+
+        public BigDecimal getBtcPrice() {
+            return btcPrice;
+        }
+
+        private BigDecimal getItemValue() {
+            return amount.multiply(btcPrice);
+        }
+    }
+
 }
