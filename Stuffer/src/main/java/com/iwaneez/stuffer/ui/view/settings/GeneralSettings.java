@@ -46,6 +46,7 @@ public class GeneralSettings extends VerticalLayout implements Localizable {
 
     private void saveLanguageClicked(Button.ClickEvent event) {
         UI.getCurrent().setLocale(langComboBox.getValue());
+        Notification.show(Localization.get("messages.general.saved"), Notification.Type.HUMANIZED_MESSAGE);
     }
 
     @Override
