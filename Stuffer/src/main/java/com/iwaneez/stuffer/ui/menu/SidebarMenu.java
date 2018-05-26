@@ -96,8 +96,8 @@ public class SidebarMenu extends CustomComponent {
 
     private Component buildLogoutButton() {
         Button logoutButton = new Button("Logout", event -> {
-            getUI().getPage().reload();
-            getSession().close();
+            getUI().getSession().close();
+            getUI().getPage().setLocation("/");
         });
         logoutButton.setIcon(VaadinIcons.SIGN_OUT);
         logoutButton.addStyleNames(ValoTheme.BUTTON_LINK, "b-link", "logout");
