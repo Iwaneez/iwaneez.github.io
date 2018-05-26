@@ -124,7 +124,7 @@ public abstract class DetailComponent<T> extends CustomComponent implements Item
 
     @Override
     public void localize() {
-        setCaption(Localization.get("general.masterdetail.detail.caption"));
+//        setCaption(Localization.get("general.masterdetail.detail.caption"));
         cancelButton.setCaption(Localization.get("general.button.cancel"));
         saveButton.setCaption(Localization.get("general.button.save"));
     }

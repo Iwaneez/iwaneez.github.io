@@ -55,6 +55,7 @@ public class ExchangeSettings extends VerticalLayout implements Localizable {
         activeProfileComboBox.setItems(exchangeProfileService.getCurrentUserExchangeProfiles());
         activeProfileComboBox.setItemCaptionGenerator(ExchangeProfile::getName);
         activeProfileComboBox.setSelectedItem(userService.getCurrentUser().getActiveProfile());
+        activeProfileComboBox.setTextInputAllowed(false);
         profileSelector.addComponent(activeProfileComboBox);
         profileSelector.setComponentAlignment(activeProfileComboBox, Alignment.BOTTOM_LEFT);
 

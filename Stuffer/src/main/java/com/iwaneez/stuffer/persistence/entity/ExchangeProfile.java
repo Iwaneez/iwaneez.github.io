@@ -1,6 +1,6 @@
 package com.iwaneez.stuffer.persistence.entity;
 
-import com.iwaneez.stuffer.exchange.bo.SupportedExchange;
+import com.iwaneez.stuffer.exchange.bo.ExchangeType;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,7 +13,7 @@ public class ExchangeProfile {
     private String name;
     private String apiKey;
     private String secretKey;
-    private SupportedExchange exchange;
+    private ExchangeType exchangeType;
     private User owner;
 
     @Id
@@ -54,13 +54,13 @@ public class ExchangeProfile {
     }
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "exchange", nullable = false)
-    public SupportedExchange getExchange() {
-        return exchange;
+    @Column(name = "exchange_type", nullable = false)
+    public ExchangeType getExchangeType() {
+        return exchangeType;
     }
 
-    public void setExchange(SupportedExchange exchange) {
-        this.exchange = exchange;
+    public void setExchangeType(ExchangeType exchangeType) {
+        this.exchangeType = exchangeType;
     }
 
     @ManyToOne
@@ -82,13 +82,13 @@ public class ExchangeProfile {
                 Objects.equals(name, that.name) &&
                 Objects.equals(apiKey, that.apiKey) &&
                 Objects.equals(secretKey, that.secretKey) &&
-                exchange == that.exchange &&
+                exchangeType == that.exchangeType &&
                 Objects.equals(owner, that.owner);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, apiKey, secretKey, exchange, owner);
+        return Objects.hash(id, name, apiKey, secretKey, exchangeType, owner);
     }
 }

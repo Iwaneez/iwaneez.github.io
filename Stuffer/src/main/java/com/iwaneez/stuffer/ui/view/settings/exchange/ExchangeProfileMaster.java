@@ -24,7 +24,7 @@ public class ExchangeProfileMaster extends MasterComponent<ExchangeProfile> {
                 query -> exchangeProfileService.getCurrentUserExchangeProfiles().stream(),
                 query -> exchangeProfileService.currentUserExchangeProfileCount()));
         name = grid.addColumn(ExchangeProfile::getName);
-        exchange = grid.addColumn(ExchangeProfile::getExchange);
+        exchange = grid.addColumn(ExchangeProfile::getExchangeType);
         apiKey = grid.addColumn(ExchangeProfile::getApiKey);
         secretKey = grid.addColumn(ExchangeProfile::getSecretKey);
         grid.setSizeFull();

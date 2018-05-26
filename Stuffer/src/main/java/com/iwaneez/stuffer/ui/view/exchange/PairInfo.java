@@ -2,7 +2,7 @@ package com.iwaneez.stuffer.ui.view.exchange;
 
 import com.google.common.eventbus.Subscribe;
 import com.iwaneez.stuffer.event.BusEvent;
-import com.iwaneez.stuffer.exchange.bo.SupportedExchange;
+import com.iwaneez.stuffer.exchange.bo.ExchangeType;
 import com.iwaneez.stuffer.exchange.service.ExchangeService;
 import com.iwaneez.stuffer.ui.component.Localizable;
 import com.iwaneez.stuffer.util.ApplicationContextUtils;
@@ -38,7 +38,7 @@ public class PairInfo extends VerticalLayout implements Localizable {
     private Exchange selectedExchange;
     private CurrencyPair selectedPair;
 
-    private ComboBox<SupportedExchange> exchangeComboBox;
+    private ComboBox<ExchangeType> exchangeComboBox;
     private ComboBox<CurrencyPair> currencyPairComboBox;
 
     private Label timestampLabel;
@@ -52,7 +52,7 @@ public class PairInfo extends VerticalLayout implements Localizable {
     private Label bidSizeLabel;
     private Label volumeLabel;
 
-    private final List<SupportedExchange> supportedExchanges = Arrays.asList(SupportedExchange.values());
+    private final List<ExchangeType> exchangeTypes = Arrays.asList(ExchangeType.values());
 
 
     public PairInfo() {
@@ -73,9 +73,10 @@ public class PairInfo extends VerticalLayout implements Localizable {
         HorizontalLayout controlPanel = new HorizontalLayout();
 
         exchangeComboBox = new ComboBox<>();
-        exchangeComboBox.setItems(supportedExchanges);
-        exchangeComboBox.setItemCaptionGenerator(SupportedExchange::getName);
+        exchangeComboBox.setItems(exchangeTypes);
+        exchangeComboBox.setItemCaptionGenerator(ExchangeType::getName);
         exchangeComboBox.addValueChangeListener(this::loadExchangePairs);
+        exchangeComboBox.setTextInputAllowed(false);
 
         currencyPairComboBox = new ComboBox<>();
         currencyPairComboBox.addValueChangeListener(event -> {
@@ -83,7 +84,7 @@ public class PairInfo extends VerticalLayout implements Localizable {
             refreshData(null);
         });
 
-//        exchangeComboBox.setSelectedItem(supportedExchanges.get(0));
+//        exchangeComboBox.setSelectedItem(exchangeTypes.get(0));
 
         controlPanel.addComponents(exchangeComboBox, currencyPairComboBox);
 
@@ -102,6 +103,8 @@ public class PairInfo extends VerticalLayout implements Localizable {
         Component askBidForm = createAskBidForm();
 
         HorizontalLayout horizontalLayout = new HorizontalLayout(ohlcForm, askBidForm);
+        horizontalLayout.setExpandRatio(ohlcForm, 1);
+        horizontalLayout.setExpandRatio(askBidForm, 2);
         horizontalLayout.setSizeFull();
 
         dataPanel.addComponents(timestampLabel, horizontalLayout);
@@ -155,7 +158,7 @@ public class PairInfo extends VerticalLayout implements Localizable {
         return askBidForm;
     }
 
-    private void loadExchangePairs(HasValue.ValueChangeEvent<SupportedExchange> event) {
+    private void loadExchangePairs(HasValue.ValueChangeEvent<ExchangeType> event) {
         selectedExchange = exchangeService.getExchange(event.getValue());
         List<CurrencyPair> pairs = selectedExchange.getExchangeSymbols();
         pairs.sort(Comparator.comparing(CurrencyPair::toString));

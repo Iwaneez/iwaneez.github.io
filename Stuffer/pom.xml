@@ -26,7 +26,7 @@
         <vaadin.plugin.version>8.3.3</vaadin.plugin.version>
         <xchange.version>4.3.5</xchange.version>
         <mysql-connector-java.version>5.1.35</mysql-connector-java.version>
-        <postgresql.version>9.1-901-1.jdbc4</postgresql.version>
+        <postgresql.version>42.2.2</postgresql.version>
     </properties>
 
     <dependencies>
@@ -139,11 +139,13 @@
         <!--</dependency>-->
 
         <!-- PostgreSQL -->
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
-            <groupId>postgresql</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
+
 
         <!-- Event Handling -->
         <dependency>

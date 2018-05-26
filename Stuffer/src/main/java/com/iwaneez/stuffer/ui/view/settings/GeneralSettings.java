@@ -2,11 +2,8 @@ package com.iwaneez.stuffer.ui.view.settings;
 
 import com.iwaneez.stuffer.ui.component.Localizable;
 import com.iwaneez.stuffer.util.Localization;
-import com.vaadin.data.HasValue;
-import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.Locale;
 
@@ -14,10 +11,11 @@ public class GeneralSettings extends VerticalLayout implements Localizable {
 
     private Panel languageSettings;
     private ComboBox<Locale> langComboBox;
+    private Button saveButton;
 
     public GeneralSettings() {
         languageSettings = new Panel();
-        languageSettings.setContent(new VerticalLayout(langComboBox = createLanguageCombobox()));
+        languageSettings.setContent(new VerticalLayout(createLanguageCombobox()));
 
         addComponents(languageSettings);
 
@@ -25,25 +23,35 @@ public class GeneralSettings extends VerticalLayout implements Localizable {
         setSizeFull();
     }
 
-    private ComboBox<Locale> createLanguageCombobox() {
-        ComboBox<Locale> comboBox = new ComboBox<>();
-        comboBox.setItems(Localization.supportedLocales);
-        comboBox.setItemCaptionGenerator(Locale::getLanguage);
-        comboBox.setSelectedItem(UI.getCurrent().getLocale());
-        comboBox.setEmptySelectionAllowed(false);
-        comboBox.setTextInputAllowed(false);
-        comboBox.addValueChangeListener(this::languageChanged);
+    private Component createLanguageCombobox() {
+        HorizontalLayout languageSelector = new HorizontalLayout();
 
-        return comboBox;
+        langComboBox = new ComboBox<>();
+        langComboBox.setItems(Localization.supportedLocales);
+        langComboBox.setItemCaptionGenerator(Locale::getLanguage);
+        langComboBox.setSelectedItem(UI.getCurrent().getLocale());
+        langComboBox.setEmptySelectionAllowed(false);
+        langComboBox.setTextInputAllowed(false);
+        languageSelector.addComponent(langComboBox);
+        languageSelector.setComponentAlignment(langComboBox, Alignment.BOTTOM_LEFT);
+
+        saveButton = new Button();
+        saveButton.addClickListener(this::saveLanguageClicked);
+        saveButton.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        languageSelector.addComponent(saveButton);
+        languageSelector.setComponentAlignment(saveButton, Alignment.BOTTOM_LEFT);
+
+        return languageSelector;
     }
 
-    private void languageChanged(HasValue.ValueChangeEvent<Locale> event) {
-        UI.getCurrent().setLocale(event.getValue());
+    private void saveLanguageClicked(Button.ClickEvent event) {
+        UI.getCurrent().setLocale(langComboBox.getValue());
     }
 
     @Override
     public void localize() {
         languageSettings.setCaption(Localization.get("settings.general.language.caption"));
         langComboBox.setCaption(Localization.get("settings.general.language.language"));
+        saveButton.setCaption(Localization.get("general.button.save"));
     }
 }

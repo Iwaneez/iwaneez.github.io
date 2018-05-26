@@ -3,7 +3,7 @@ package com.iwaneez.stuffer.ui.menu;
 import com.iwaneez.stuffer.persistence.entity.RoleType;
 import com.iwaneez.stuffer.ui.view.administration.AdminView;
 import com.iwaneez.stuffer.ui.view.exchange.ExchangeView;
-import com.iwaneez.stuffer.ui.view.home.HomeView;
+import com.iwaneez.stuffer.ui.view.home.DashboardView;
 import com.iwaneez.stuffer.ui.view.settings.SettingsView;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
@@ -11,7 +11,7 @@ import com.vaadin.server.Resource;
 
 public enum MenuItem {
 
-    HOME(HomeView.VIEW_NAME, HomeView.class, VaadinIcons.HOME, "menu.item.title.home", new RoleType[]{RoleType.USER}),
+    DASHBOARD(DashboardView.VIEW_NAME, DashboardView.class, VaadinIcons.HOME, "menu.item.title.dashboard", new RoleType[]{RoleType.USER}),
     TRADING(ExchangeView.VIEW_NAME, ExchangeView.class, VaadinIcons.LINE_CHART, "menu.item.title.exchange", new RoleType[]{RoleType.USER}),
     SETTINGS(SettingsView.VIEW_NAME, SettingsView.class, VaadinIcons.COGS, "menu.item.title.settings", new RoleType[]{RoleType.USER}),
     ADMINISTRATION(AdminView.VIEW_NAME, AdminView.class, VaadinIcons.DATABASE, "menu.item.title.administration", new RoleType[]{RoleType.ADMIN});

@@ -1,6 +1,6 @@
 package com.iwaneez.stuffer.ui.view.settings.exchange;
 
-import com.iwaneez.stuffer.exchange.bo.SupportedExchange;
+import com.iwaneez.stuffer.exchange.bo.ExchangeType;
 import com.iwaneez.stuffer.persistence.entity.ExchangeProfile;
 import com.iwaneez.stuffer.persistence.repository.ExchangeProfileRepository;
 import com.iwaneez.stuffer.service.UserService;
@@ -16,7 +16,7 @@ public class ExchangeProfileDetail extends DetailComponent<ExchangeProfile> {
     private ExchangeProfileRepository exchangeProfileRepository;
 
     private TextField name;
-    private ComboBox<SupportedExchange> exchange;
+    private ComboBox<ExchangeType> exchange;
     private TextArea apiKey, secretKey;
     private CheckBox active;
 
@@ -35,9 +35,10 @@ public class ExchangeProfileDetail extends DetailComponent<ExchangeProfile> {
                 .bind(ExchangeProfile::getName, ExchangeProfile::setName);
 
         exchange = new ComboBox();
-        exchange.setItems(SupportedExchange.values());
+        exchange.setItems(ExchangeType.values());
+        exchange.setTextInputAllowed(false);
         binder.forField(exchange).asRequired()
-                .bind(ExchangeProfile::getExchange, ExchangeProfile::setExchange);
+                .bind(ExchangeProfile::getExchangeType, ExchangeProfile::setExchangeType);
 
         apiKey = new TextArea();
         binder.forField(apiKey).asRequired()
