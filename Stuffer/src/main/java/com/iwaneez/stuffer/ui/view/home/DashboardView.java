@@ -8,6 +8,7 @@ import com.iwaneez.stuffer.ui.component.Localizable;
 import com.iwaneez.stuffer.util.Localization;
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.*;
+import com.vaadin.addon.charts.model.style.SolidColor;
 import com.vaadin.navigator.View;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
@@ -28,6 +29,9 @@ public class DashboardView extends VerticalLayout implements View, Localizable {
     private final static Logger LOGGER = LoggerFactory.getLogger(DashboardView.class);
 
     public static final String VIEW_NAME = "DashboardView";
+
+    private static final int INNER_PIE_SIZE = 70;
+    private static final String INNER_PIE_COLOR = "#FAFAFA";
 
     private UserService userService;
     private ExchangeService exchangeService;
@@ -75,25 +79,36 @@ public class DashboardView extends VerticalLayout implements View, Localizable {
         Chart balancePieChart = new Chart(ChartType.PIE);
         chartConfig = balancePieChart.getConfiguration();
 
-        PlotOptionsPie plotOptions = new PlotOptionsPie();
+        Tooltip tooltip = new Tooltip();
+        tooltip.setPointFormat("<b>{point.y}</b>");
+        chartConfig.setTooltip(tooltip);
 
-        DataLabels dataLabels = new DataLabels();
-        dataLabels.setEnabled(true);
-        dataLabels.setFormatter("'<b>'+ this.point.name +'</b>: '+ this.percentage +' %'");
-        plotOptions.setDataLabels(dataLabels);
-        plotOptions.setCursor(Cursor.POINTER);
+        Legend legend = new Legend();
+        legend.setLabelFormat("{name}: <b>{percentage:.2f}%</b>");
+        chartConfig.setLegend(legend);
 
-        chartConfig.setPlotOptions(plotOptions);
+        DataSeries innerSeries = new DataSeries();
+        innerSeries.add(new DataSeriesItem("TOTAL", walletBalance.getTotalPrice(), new SolidColor(INNER_PIE_COLOR)));
+        PlotOptionsPie innerPieOptions = new PlotOptionsPie();
+        innerPieOptions.setSize(INNER_PIE_SIZE, Unit.PERCENTAGE);
+        innerPieOptions.getDataLabels().setEnabled(false);
+        innerSeries.setPlotOptions(innerPieOptions);
 
-        DataSeries series = new DataSeries();
+        DataSeries outerSeries = new DataSeries("portfolio");
         walletBalance.getBalanceItems().stream()
-                .forEach(balanceItem -> series.add(
+                .forEach(balanceItem -> outerSeries.add(
                         new DataSeriesItem(
                                 balanceItem.getCurrencyPair().base.getCurrencyCode(),
-                                calculatePercentage(balanceItem.getTotalPrice(), walletBalance.getTotalPrice(), false))));
+                                balanceItem.getTotalPrice())));
+        PlotOptionsPie outerPieOptions = new PlotOptionsPie();
+        outerPieOptions.setInnerSize(INNER_PIE_SIZE, Unit.PERCENTAGE);
+        outerPieOptions.setCursor(Cursor.POINTER);
+        outerPieOptions.setAllowPointSelect(true);
+        outerPieOptions.setShowInLegend(true);
+        outerPieOptions.getDataLabels().setFormat("<b>{point.name}: </b> {y}");
+        outerSeries.setPlotOptions(outerPieOptions);
 
-        chartConfig.setSeries(series);
-        balancePieChart.drawChart(chartConfig);
+        chartConfig.setSeries(innerSeries, outerSeries);
 
         return balancePieChart;
     }
@@ -108,11 +123,12 @@ public class DashboardView extends VerticalLayout implements View, Localizable {
         percentageCol = grid.addColumn(balanceItem -> calculatePercentage(balanceItem.getTotalPrice(), walletBalance.getTotalPrice(), true));
 
         FooterRow footer = grid.appendFooterRow();
-        footer.getCell(priceCol).setHtml("<span style='vertical-align: middle;'>&Sigma;</span>");
-        footer.getCell(totalPriceCol).setText(walletBalance.getTotalPrice().toString());
-        footer.getCell(percentageCol).setText("100 %");
+        footer.getCell(percentageCol).setHtml(
+                "<span style='vertical-align: middle; float: left;'>&Sigma;</span>" +
+                "<span style='vertical-align: middle; float: right;'>" + walletBalance.getTotalPrice() + "</span>");
 
-        grid.setSizeFull();
+        grid.setStyleName("portfolio-grid");
+        grid.setWidth(100, Unit.PERCENTAGE);
 
         return grid;
     }

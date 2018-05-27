@@ -41,6 +41,11 @@ $login-background-image: "img/login-bg.jpg" !default;
     }
   }
 
+  //hide vaadin charts license info
+  & + div {
+    display: none !important;
+  }
+
   .no-padding {
     padding: 0px;
   }
@@ -82,6 +87,13 @@ $login-background-image: "img/login-bg.jpg" !default;
 
   .highcharts-background {
     fill: none;
+  }
+
+  .portfolio-grid {
+    th, td {
+      text-align: right !important;
+    }
+
   }
 
 }

@@ -83,32 +83,31 @@ public class PairInfo extends VerticalLayout implements Localizable {
             selectedPair = event.getValue();
             refreshData(null);
         });
-
-//        exchangeComboBox.setSelectedItem(exchangeTypes.get(0));
-
         controlPanel.addComponents(exchangeComboBox, currencyPairComboBox);
 
         return controlPanel;
     }
 
     private Component createDataPanel() {
-        VerticalLayout dataPanel = new VerticalLayout();
-        dataPanel.setMargin(false);
-        dataPanel.setSizeFull();
-
         timestampLabel = new Label(getDateTimeString());
-        timestampLabel.setCaption("Date:");
 
         Component ohlcForm = createOhlcForm();
         Component askBidForm = createAskBidForm();
 
         HorizontalLayout horizontalLayout = new HorizontalLayout(ohlcForm, askBidForm);
-        horizontalLayout.setExpandRatio(ohlcForm, 1);
-        horizontalLayout.setExpandRatio(askBidForm, 2);
         horizontalLayout.setSizeFull();
 
-        dataPanel.addComponents(timestampLabel, horizontalLayout);
-        dataPanel.setExpandRatio(horizontalLayout, 1);
+        VerticalLayout pricePanel = new VerticalLayout(timestampLabel, horizontalLayout);
+        pricePanel.setExpandRatio(horizontalLayout, 1);
+        pricePanel.setSizeFull();
+        pricePanel.setMargin(false);
+
+        VerticalLayout infoPanel = new VerticalLayout();
+        infoPanel.setSizeFull();
+        infoPanel.setMargin(false);
+
+        HorizontalLayout dataPanel = new HorizontalLayout(pricePanel, infoPanel);
+        dataPanel.setSizeFull();
 
         return dataPanel;
     }
@@ -212,5 +211,6 @@ public class PairInfo extends VerticalLayout implements Localizable {
     public void localize() {
         exchangeComboBox.setCaption(Localization.get("exchange.pairInfo.exchange"));
         currencyPairComboBox.setCaption(Localization.get("exchange.pairInfo.pair"));
+        timestampLabel.setCaption(Localization.get("general.caption.date"));
     }
 }
