@@ -13,16 +13,19 @@ import com.iwaneez.stuffer.ui.view.MainView;
 import com.iwaneez.stuffer.util.Localization;
 import com.iwaneez.stuffer.util.SessionScopedEventBus;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.spring.navigator.SpringViewProvider;
+import com.vaadin.spring.server.SpringVaadinServlet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.annotation.WebServlet;
 import java.util.Locale;
 
 //@Push(value = PushMode.MANUAL, transport = Transport.LONG_POLLING)
@@ -36,7 +39,6 @@ public class StufferUI extends UI {
     private final SessionScopedEventBus sessionScopedEventBus;
 
     private final ContentContainer contentContainer;
-
 
     @Autowired
     public StufferUI(SecurityService securityService, UserService userService, SpringNavigator navigator, SpringViewProvider viewProvider, ContentContainer contentContainer) {
@@ -93,6 +95,11 @@ public class StufferUI extends UI {
     private void afterLogin() {
         setLocale(Localization.getLocale());
         showMainView();
+    }
+
+    @WebServlet(urlPatterns = "/*", name = "StufferUIServlet", asyncSupported = true)
+    @VaadinServletConfiguration(ui = StufferUI.class, productionMode = false)
+    public static class StufferUIServlet extends SpringVaadinServlet {
     }
 
     @Override

@@ -2,12 +2,14 @@ package com.iwaneez.stuffer.ui.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-import org.springframework.stereotype.Component;
 
+@UIScope
+@SpringView
 public class ErrorView extends VerticalLayout implements View {
 
     private Label errorLabel;
