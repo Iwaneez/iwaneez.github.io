@@ -42,9 +42,9 @@ $login-background-image: "img/login-bg.jpg" !default;
   }
 
   //hide vaadin charts license info
-  //& + div {
-  //  display: none !important;
-  //}
+  & + div:not([style*="background-color: red;"]) {
+    display: none !important;
+  }
 
   .no-padding {
     padding: 0px;
