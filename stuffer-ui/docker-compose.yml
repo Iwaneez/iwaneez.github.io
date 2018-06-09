@@ -1,0 +1,21 @@
+version: '3'
+services:
+
+  stuffer:
+    container_name: stuffer_container
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.profiles.active=dev
+    networks:
+      - stuffer_network
+      - nginx_network
+#    depends_on:
+#      - postgreDB
+
+networks:
+  stuffer_network:
+    external: true
+  nginx_network:
+    external: true

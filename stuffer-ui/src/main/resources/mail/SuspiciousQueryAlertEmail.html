@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Suspicious query alert</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p>
+            This is a warning about suspicious SQL query that matched one of preconfigured expressions:
+        </p>
+        <p th:text="'Time: ' + ${mailData.executed}">
+            Time:
+        </p>
+        <p th:text="'User: ' + ${mailData.user.username}">
+            User:
+        </p>
+        <p th:text="'SQL query: ' + ${mailData.sqlQuery}">
+            SQL query:
+        </p>
+        <p th:text="'Database: ' + ${mailData.dbType.name}">
+            Database:
+        </p>
+        <p th:text="'Pattern: ' + ${mailData.matchedSetup.regExp}">
+            Pattern:
+        </p>
+    </body>
+</html>
