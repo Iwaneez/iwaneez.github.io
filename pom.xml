@@ -11,8 +11,7 @@
 
     <modules>
         <module>stuffer-core</module>
-        <module>stuffer-bot</module>
-        <module>stuffer-ui</module>
+        <module>stuffer-app</module>
     </modules>
 
 </project>
